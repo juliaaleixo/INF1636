@@ -19,5 +19,6 @@ public class Janela extends JFrame
 	{
 		Janela j = new Janela();
 		j.setVisible(true);
+		
 	}
 }
