@@ -91,66 +91,66 @@ public class Tabuleiro extends JPanel
 				{
 					if (p.getCor() == Cor.preto)
 					{
-						g.drawImage(imagemPeaoPreto, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemPeaoPreto, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 					else
 					{
-						g.drawImage(imagemPeaoBranco,(7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemPeaoBranco,i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 				}
 				if (p instanceof Torre)
 				{
 					if (p.getCor() == Cor.preto)
 					{
-						g.drawImage(imagemTorrePreta,(7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemTorrePreta,i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 					else
 					{
-						g.drawImage(imagemTorreBranca,(7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemTorreBranca,i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 				}
 				if (p instanceof Bispo)
 				{
 					if (p.getCor() == Cor.preto)
 					{
-						g.drawImage(imagemBispoPreto, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemBispoPreto, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 					else
 					{
-						g.drawImage(imagemBispoBranco, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemBispoBranco, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 				}
 				if (p instanceof Rei)
 				{
 					if (p.getCor() == Cor.preto)
 					{
-						g.drawImage(imagemReiPreto, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemReiPreto, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 					else
 					{
-						g.drawImage(imagemReiBranco, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemReiBranco, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 				}
 				if (p instanceof Rainha)
 				{
 					if (p.getCor() == Cor.preto)
 					{
-						g.drawImage(imagemRainhaPreta, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemRainhaPreta, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 					else
 					{
-						g.drawImage(imagemRainhaBranca, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemRainhaBranca, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 				}
 				if (p instanceof Cavalo)
 				{
 					if (p.getCor() == Cor.preto)
 					{
-						g.drawImage(imagemCavaloPreto, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemCavaloPreto, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 					else
 					{
-						g.drawImage(imagemCavaloBranco, (7-i)*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
+						g.drawImage(imagemCavaloBranco, i*tamanho, (7-j)*tamanho, tamanho, tamanho, null);
 					}
 				}		
 			}
