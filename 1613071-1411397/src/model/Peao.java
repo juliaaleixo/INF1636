@@ -17,7 +17,7 @@ public class Peao extends Peca
 			if(primeiroMov == true) {
 				if((yDest == yOrig - 2 || yDest == yOrig - 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
-						tabuleiro[xDest][yDest] = tabuleiro[xOrig][yOrig];
+						tabuleiro[xDest][yDest] = p;
 						tabuleiro[xOrig][yOrig] = null;
 						this.primeiroMov = false;
 					} 
@@ -30,7 +30,7 @@ public class Peao extends Peca
 			else {
 				if((yDest == yOrig - 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
-						tabuleiro[xDest][yDest] = tabuleiro[xOrig][yOrig];
+						tabuleiro[xDest][yDest] = p;
 						tabuleiro[xOrig][yOrig] = null;
 					} else {
 						String str = "Proibido mover peao para essa localizacao";
@@ -38,11 +38,12 @@ public class Peao extends Peca
 					}
 				}
 			}
-		} else {
+		} 
+		else {
 			if(primeiroMov == true) {
 				if((yDest == yOrig + 2 || yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
-						tabuleiro[xDest][yDest] = tabuleiro[xOrig][yOrig];
+						tabuleiro[xDest][yDest] = p;
 						tabuleiro[xOrig][yOrig] = null;
 						this.primeiroMov = false;
 					} 
@@ -55,7 +56,7 @@ public class Peao extends Peca
 			else {
 				if((yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
-						tabuleiro[xDest][yDest] = tabuleiro[xOrig][yOrig];
+						tabuleiro[xDest][yDest] = p;
 						tabuleiro[xOrig][yOrig] = null;
 					} else {
 						String str = "Proibido mover peao para essa localizacao";

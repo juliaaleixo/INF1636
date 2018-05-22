@@ -52,9 +52,12 @@ public class Jogo
 		tabuleiro[4][0] = new Rei(Cor.branco);
 		tabuleiro[4][7] = new Rei(Cor.preto);
 		
-		try {
+		try 
+		{
 			tabuleiro[2][1].movimento(2, 1, 2, 2, tabuleiro);
-		} catch (MovIlegalExcecao e){
+		} 
+		catch (MovIlegalExcecao e)
+		{
 			return;
 		}
 	}
