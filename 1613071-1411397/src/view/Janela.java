@@ -22,6 +22,7 @@ public class Janela extends JFrame implements MouseListener
 		addMouseListener(this);
 
 	}
+	
 	public static void main(String []args)
 	{
 		Janela j = new Janela();
@@ -31,13 +32,27 @@ public class Janela extends JFrame implements MouseListener
 
 	}
 	
+	// Pega uma coordenada da janela X e a transforma numa posicao X da matriz de peças
+	public int getTileX (int x) {
+		return (x-3)/50;
+	}
+	
+	// Pega uma coordenada da janela Y e a transforma numa posicao Y da matriz de peças
+	public int getTileY (int y) {
+		return 7 - ((y-26)/50);
+	}
+	
 	public void mousePressed(MouseEvent e)
 	{
 		clickX = e.getX();
 	    clickY = e.getY();
+	    
+	    // debug purposes
 	    String str = "Mouse Pressed - x: " + clickX + " y: " + clickY;
 	    System.out.println(str);
+	    System.out.println(String.valueOf(getTileX(clickX)) + " " + String.valueOf(getTileY(clickY)));
 	  }
+	
 	  public void mouseReleased(MouseEvent e)
 	  {
 		clickX = e.getX();
@@ -46,14 +61,15 @@ public class Janela extends JFrame implements MouseListener
 		System.out.println(str);
 
 	  }
+	  
 	  public void mouseClicked(MouseEvent e)
 	  {
 	    clickX = e.getX();
 	    clickY = e.getY();
 	    String str = "Mouse Clicked";
 	    System.out.println(str);
-
 	  }
+	  
 	  public void mouseEntered(MouseEvent e)
 	  {
 //		
@@ -63,6 +79,7 @@ public class Janela extends JFrame implements MouseListener
 //	    System.out.println(str);
 	    
 	  }
+	  
 	  public void mouseExited(MouseEvent e)
 	  {
 //	    clickX = e.getX();

@@ -13,12 +13,21 @@ public class Peao extends Peca
 	{
 		Peca p = tabuleiro[xOrig][yOrig];
 		
+		
 		if(p.getCor() == Cor.branco) {
-			if(primeiroMov == true) {
+			
+			// capturando uma peca nas diagonais
+			if((yDest == yOrig + 1) && ((xDest == xOrig + 1) || (xDest == xOrig - 1))) {
+				if(tabuleiro[xDest][yDest] != null) {
+					realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
+					//TODO
+				}
+			}
+			// andando para frente, caso nao haja peça no caminho
+			else if(primeiroMov == true) {
 				if((yDest == yOrig + 2 || yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
-						tabuleiro[xDest][yDest] = p;
-						tabuleiro[xOrig][yOrig] = null;
+						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 						this.primeiroMov = false;
 					} 
 					else {
@@ -30,8 +39,7 @@ public class Peao extends Peca
 			else {
 				if((yDest == yOrig - 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
-						tabuleiro[xDest][yDest] = p;
-						tabuleiro[xOrig][yOrig] = null;
+						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 					} else {
 						String str = "Proibido mover peao para essa localizacao";
 						throw new MovIlegalExcecao(str);
@@ -43,8 +51,7 @@ public class Peao extends Peca
 			if(primeiroMov == true) {
 				if((yDest == yOrig - 2 || yDest == yOrig - 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
-						tabuleiro[xDest][yDest] = p;
-						tabuleiro[xOrig][yOrig] = null;
+						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 						this.primeiroMov = false;
 					} 
 					else {
@@ -56,8 +63,7 @@ public class Peao extends Peca
 			else {
 				if((yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
-						tabuleiro[xDest][yDest] = p;
-						tabuleiro[xOrig][yOrig] = null;
+						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 					} else {
 						String str = "Proibido mover peao para essa localizacao";
 						throw new MovIlegalExcecao(str);
@@ -69,5 +75,16 @@ public class Peao extends Peca
 		
 	}
 	
+	// classe já herda esse método, já que ele é static e protected (só classes filhas e do pacote podem usar)
+	/*
+	private void realizaMov (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) {
+		
+		Peca p = tabuleiro[xOrig][yOrig];
+		
+		tabuleiro[xDest][yDest] = p;
+		tabuleiro[xOrig][yOrig] = null;
+	
+	}
+	*/
 	
 }

@@ -13,4 +13,11 @@ public abstract class Peca
 	{
 		return cor;
 	}
+	
+	protected static void realizaMov (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) {
+		Peca p = tabuleiro[xOrig][yOrig];
+		
+		tabuleiro[xDest][yDest] = p;
+		tabuleiro[xOrig][yOrig] = null;
+	}
 }
