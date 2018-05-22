@@ -13,7 +13,6 @@ public class Peao extends Peca
 	{
 		Peca p = tabuleiro[xOrig][yOrig];
 		
-		
 		if(p.getCor() == Cor.branco) {
 			
 			// capturando uma peca nas diagonais
@@ -23,7 +22,7 @@ public class Peao extends Peca
 					//TODO
 				}
 			}
-			// andando para frente, caso nao haja peça no caminho
+			// andando para frente, caso nao haja peca no caminho
 			else if(primeiroMov == true) {
 				if((yDest == yOrig + 2 || yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
@@ -40,7 +39,8 @@ public class Peao extends Peca
 				if((yDest == yOrig - 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
 						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
-					} else {
+					} 
+					else {
 						String str = "Proibido mover peao para essa localizacao";
 						throw new MovIlegalExcecao(str);
 					}
@@ -64,7 +64,8 @@ public class Peao extends Peca
 				if((yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
 						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
-					} else {
+					} 
+					else {
 						String str = "Proibido mover peao para essa localizacao";
 						throw new MovIlegalExcecao(str);
 					}
@@ -75,7 +76,7 @@ public class Peao extends Peca
 		
 	}
 	
-	// classe já herda esse método, já que ele é static e protected (só classes filhas e do pacote podem usar)
+	// classe jï¿½ herda esse mï¿½todo, jï¿½ que ele ï¿½ static e protected (sï¿½ classes filhas e do pacote podem usar)
 	/*
 	private void realizaMov (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) {
 		

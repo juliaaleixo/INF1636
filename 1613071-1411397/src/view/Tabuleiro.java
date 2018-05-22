@@ -24,8 +24,7 @@ import model.Torre;
 
 public class Tabuleiro extends JPanel
 {
-	Jogo jogo = new Jogo();
-	
+	Jogo jogo;
 	BufferedImage imagemPeaoBranco, imagemPeaoPreto;
 	BufferedImage imagemCavaloBranco, imagemCavaloPreto;
 	BufferedImage imagemBispoBranco, imagemBispoPreto;
@@ -33,8 +32,10 @@ public class Tabuleiro extends JPanel
 	BufferedImage imagemReiBranco, imagemReiPreto;
 	BufferedImage imagemTorreBranca, imagemTorrePreta;
 	
-	public Tabuleiro()
+	public Tabuleiro(Jogo jogo)
 	{
+		this.jogo = jogo;
+		
 		try 
 		{
 			imagemPeaoBranco = ImageIO.read(new File("Pecas/b_peao.png"));

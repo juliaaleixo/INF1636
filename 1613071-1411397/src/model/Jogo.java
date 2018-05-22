@@ -2,7 +2,7 @@ package model;
 
 public class Jogo 
 {
-	Peca tabuleiro [][] = new Peca[8][8];
+	public Peca tabuleiro [][] = new Peca[8][8];
 	
 	public Peca getPeca (int x, int y)
 	{
@@ -52,13 +52,5 @@ public class Jogo
 		tabuleiro[4][0] = new Rei(Cor.branco);
 		tabuleiro[4][7] = new Rei(Cor.preto);
 		
-		try 
-		{
-			tabuleiro[2][1].movimento(2, 1, 2, 3, tabuleiro);
-		} 
-		catch (MovIlegalExcecao e)
-		{
-			return;
-		}
 	}
 }
