@@ -51,5 +51,14 @@ public class Jogo
 		//posicionando os reis
 		tabuleiro[4][0] = new Rei(Cor.branco);
 		tabuleiro[4][7] = new Rei(Cor.preto);
+		
+		try 
+		{
+			tabuleiro[2][1].movimento(2, 1, 2, 3, tabuleiro);
+		} 
+		catch (MovIlegalExcecao e)
+		{
+			return;
+		}
 	}
 }
