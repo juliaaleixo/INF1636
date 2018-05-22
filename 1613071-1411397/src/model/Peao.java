@@ -15,7 +15,7 @@ public class Peao extends Peca
 		
 		if(p.getCor() == Cor.branco) {
 			if(primeiroMov == true) {
-				if((yDest == yOrig - 2 || yDest == yOrig - 1) && (xDest == xOrig)) {
+				if((yDest == yOrig + 2 || yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
 						tabuleiro[xDest][yDest] = p;
 						tabuleiro[xOrig][yOrig] = null;
@@ -41,7 +41,7 @@ public class Peao extends Peca
 		} 
 		else {
 			if(primeiroMov == true) {
-				if((yDest == yOrig + 2 || yDest == yOrig + 1) && (xDest == xOrig)) {
+				if((yDest == yOrig - 2 || yDest == yOrig - 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
 						tabuleiro[xDest][yDest] = p;
 						tabuleiro[xOrig][yOrig] = null;

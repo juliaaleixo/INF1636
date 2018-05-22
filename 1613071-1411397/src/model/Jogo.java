@@ -54,7 +54,7 @@ public class Jogo
 		
 		try 
 		{
-			tabuleiro[2][1].movimento(2, 1, 2, 2, tabuleiro);
+			tabuleiro[2][1].movimento(2, 1, 2, 3, tabuleiro);
 		} 
 		catch (MovIlegalExcecao e)
 		{
