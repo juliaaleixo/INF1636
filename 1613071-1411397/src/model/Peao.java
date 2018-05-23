@@ -26,6 +26,7 @@ public class Peao extends Peca
 			else if(primeiroMov == true) {
 				if((yDest == yOrig + 2 || yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
+						System.out.println("Origem: "+xOrig+yOrig+"Destino"+xDest+yDest);
 						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 						this.primeiroMov = false;
 					} 
@@ -36,7 +37,7 @@ public class Peao extends Peca
 				}
 			} 
 			else {
-				if((yDest == yOrig - 1) && (xDest == xOrig)) {
+				if((yDest == yOrig + 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
 						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 					} 
@@ -61,7 +62,7 @@ public class Peao extends Peca
 				}
 			} 
 			else {
-				if((yDest == yOrig + 1) && (xDest == xOrig)) {
+				if((yDest == yOrig - 1) && (xDest == xOrig)) {
 					if(tabuleiro[xDest][yDest] == null) {
 						realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 					} 
