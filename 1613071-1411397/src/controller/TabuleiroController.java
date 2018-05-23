@@ -21,7 +21,6 @@ public class TabuleiroController implements MouseListener
 		janela.setVisible(true);	
 		
 		janela.addMouseListener(this);
-		
 	}
 	
 	private void movimentaPeca()

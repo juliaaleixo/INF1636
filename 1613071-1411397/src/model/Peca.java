@@ -3,7 +3,9 @@ package model;
 public abstract class Peca 
 {
 	private Cor cor;
+	
 	public abstract void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao;
+	public abstract boolean caminhoLivre(int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro); 
 	
 	public Peca (Cor cor) 
 	{

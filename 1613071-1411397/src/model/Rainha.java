@@ -7,24 +7,102 @@ public class Rainha extends Peca
 	{
 		super (cor);
 	}
-	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
+
+	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
-		Peca r = tabuleiro[xOrig][yOrig];
-		
-		if (r.getCor() == Cor.branco)
+		if( xOrig == xDest && yOrig == yDest )
 		{
-			// andar p frente e tras
-			if (xOrig == xDest && Math.abs(yDest-yOrig) < 8)
-			{
-				
-			}
-			// andar nas diagonais
-			
+			String str = "Proibido mover rainha para essa localizacao";
+			throw new MovIlegalExcecao(str);
+		}
+		if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) )
+		{
+			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
 		}
 		else
 		{
-			
+			String str = "Proibido mover rainha para essa localizacao";
+			throw new MovIlegalExcecao(str);
 		}
+		
+	}
+	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
+	{
+		// andar vertical
+		if ( xOrig == xDest )
+		{
+			for ( int i = 1 ; i < (Math.abs(yDest - yOrig)); i++ )
+			{ 
+				//sinal do passo muda dependendo do sentido do movimento (descendo: negativo, subindo: positivo)
+				int passo = i;
+				if ( yDest < yOrig )
+				{
+					passo = passo * (-1);
+				}
+				if ( tabuleiro[xOrig][yOrig+passo] != null )
+				{
+					System.out.println(xOrig);
+					System.out.println(yOrig+passo);
+					return false;
+				}
+			}
+		}
+		// andar horizontal
+		else if ( yOrig == yDest ) 
+		{
+			for ( int i = 1 ; i < (Math.abs(xDest - xOrig)); i++ )
+			{ 
+				int passo = i;
+				if ( xDest < xOrig )
+				{
+					passo = passo * (-1);
+				}
+				if ( tabuleiro[xOrig+passo][yOrig] != null )
+				{
+					return false;
+				}
+			}
+		}
+		// andar nas diagonais
+		else if ( Math.abs(xDest - xOrig) == Math.abs(yDest - yOrig) )
+		{
+			
+			for ( int i = 1 ; i < (Math.abs(xDest - xOrig)); i++ )
+			{ 
+				int passoX = i;
+				int passoY = i;
+				
+				if ( xDest < xOrig )
+				{
+					passoX = passoX * (-1);
+				}
+				if( yDest < yOrig )
+				{
+					passoY = passoY * (-1);
+				}
+				if ( tabuleiro[xOrig+passoX][yOrig+passoY] != null )
+				{
+					return false;
+				}
+			}
+		}
+		else
+		{
+			return false;
+		}
+		//verificando se a posicao final contem uma peca da cor oposta
+		if ( tabuleiro[xDest][yDest] != null )
+		{
+			if ( tabuleiro[xDest][yDest].getCor() != tabuleiro[xOrig][yOrig].getCor() )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	
 }

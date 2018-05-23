@@ -10,4 +10,8 @@ public class Rei extends Peca
 	{
 		// TODO Auto-generated method stub	
 	}
+	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
+	{
+		return true;
+	}
 }
