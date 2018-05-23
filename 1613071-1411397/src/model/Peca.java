@@ -23,4 +23,12 @@ public abstract class Peca
 		tabuleiro[xDest][yDest] = p;
 		tabuleiro[xOrig][yOrig] = null;
 	}
+	
+	public void verificaRainha(int xDest, int yDest, Peca[][] tabuleiro) {
+		Peca p = tabuleiro[xDest][yDest];
+		
+		if(p instanceof Rainha) {
+			Rainha.decrementaQtdRainhas();
+		}
+	}
 }

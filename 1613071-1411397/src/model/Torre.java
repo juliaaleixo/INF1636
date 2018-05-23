@@ -69,6 +69,7 @@ public class Torre extends Peca
 		{
 			if ( tabuleiro[xDest][yDest].getCor() != tabuleiro[xOrig][yOrig].getCor() )
 			{
+				this.verificaRainha(xDest, yDest, tabuleiro);
 				return true;
 			}
 			else

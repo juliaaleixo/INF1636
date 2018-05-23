@@ -1,13 +1,25 @@
+
+
 package model;
 
 public class Rainha extends Peca
 {
+	private static int qtdRainhas = 0;
 	
 	public Rainha (Cor cor)
 	{
-		super (cor);
+		super(cor);
+		qtdRainhas++;
 	}
 
+	public static void decrementaQtdRainhas () {
+		qtdRainhas--;
+	}
+	
+	public int getQtdRainhas () {
+		return qtdRainhas;
+	}
+	
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if( xOrig == xDest && yOrig == yDest )
@@ -95,6 +107,7 @@ public class Rainha extends Peca
 		{
 			if ( tabuleiro[xDest][yDest].getCor() != tabuleiro[xOrig][yOrig].getCor() )
 			{
+				this.verificaRainha(xDest, yDest, tabuleiro);
 				return true;
 			}
 			else

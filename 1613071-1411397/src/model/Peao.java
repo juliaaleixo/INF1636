@@ -29,8 +29,8 @@ public class Peao extends Peca
 		// capturando uma peca nas diagonais
 		if((yDest == yOrig + m1) && ((xDest == xOrig + 1) || (xDest == xOrig - 1))) {
 			if(tabuleiro[xDest][yDest] != null) {
+				this.verificaRainha(xDest, yDest, tabuleiro);
 				realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
-				//TODO
 			}
 		}
 		
