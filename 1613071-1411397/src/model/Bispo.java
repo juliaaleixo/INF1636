@@ -6,12 +6,63 @@ public class Bispo extends Peca
 	{
 		super (cor);
 	}
-	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
+	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
-		// TODO Auto-generated method stub	
+		if( xOrig == xDest && yOrig == yDest )
+		{
+			String str = "Proibido mover bispo para essa localizacao";
+			throw new MovIlegalExcecao(str);
+		}
+		if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) )
+		{
+			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
+		}
+		else
+		{
+			String str = "Proibido mover bispo para essa localizacao";
+			throw new MovIlegalExcecao(str);
+		}	
 	}
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
+		// andar nas diagonais
+		if ( Math.abs(xDest - xOrig) == Math.abs(yDest - yOrig) )
+		{		
+			for ( int i = 1 ; i < (Math.abs(xDest - xOrig)); i++ )
+			{ 
+				int passoX = i;
+				int passoY = i;
+						
+				if ( xDest < xOrig )
+				{
+					passoX = passoX * (-1);
+				}
+				if( yDest < yOrig )
+				{
+					passoY = passoY * (-1);
+				}
+				if ( tabuleiro[xOrig+passoX][yOrig+passoY] != null )
+				{
+					return false;
+				}
+			}
+		}
+		else
+		{
+			return false;
+		}
+		//verificando se a posicao final contem uma peca da cor oposta
+		if ( tabuleiro[xDest][yDest] != null )
+		{
+			if ( tabuleiro[xDest][yDest].getCor() != tabuleiro[xOrig][yOrig].getCor() )
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 		return true;
 	}
 }

@@ -41,8 +41,8 @@ public class Rainha extends Peca
 				}
 				if ( tabuleiro[xOrig][yOrig+passo] != null )
 				{
-					System.out.println(xOrig);
-					System.out.println(yOrig+passo);
+					//System.out.println(xOrig);
+					//System.out.println(yOrig+passo);
 					return false;
 				}
 			}
