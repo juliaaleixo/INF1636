@@ -31,4 +31,18 @@ public abstract class Peca
 			Rainha.decrementaQtdRainhas();
 		}
 	}
+	
+	protected boolean verificaUltimaCasa (int xDest, int yDest, Cor corP, Peca[][] tabuleiro) {
+		
+		if ( tabuleiro[xDest][yDest] != null )
+		{
+			if ( tabuleiro[xDest][yDest].getCor() != corP )
+			{
+				this.verificaRainha(xDest, yDest, tabuleiro);
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
 }

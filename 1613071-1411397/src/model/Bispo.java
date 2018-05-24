@@ -25,10 +25,11 @@ public class Bispo extends Peca
 	}
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
+		Peca p = tabuleiro[xOrig][yOrig];
 		// andar nas diagonais
 		if ( Math.abs(xDest - xOrig) == Math.abs(yDest - yOrig) )
 		{		
-			for ( int i = 1 ; i < (Math.abs(xDest - xOrig)); i++ )
+			for ( int i = 1 ; i <= (Math.abs(xDest - xOrig)); i++ )
 			{ 
 				int passoX = i;
 				int passoY = i;
@@ -43,14 +44,16 @@ public class Bispo extends Peca
 				}
 				if ( tabuleiro[xOrig+passoX][yOrig+passoY] != null )
 				{
-					return false;
+					if(!this.verificaUltimaCasa(xOrig+passoX, yOrig+passoY, p.getCor(), tabuleiro)) {
+						return false;
+					}
 				}
 			}
-		}
-		else
-		{
+		} else {
 			return false;
 		}
+		return true;
+		/* //virou funcao da classe peca
 		//verificando se a posicao final contem uma peca da cor oposta
 		if ( tabuleiro[xDest][yDest] != null )
 		{
@@ -64,6 +67,6 @@ public class Bispo extends Peca
 				return false;
 			}
 		}
-		return true;
+		*/
 	}
 }

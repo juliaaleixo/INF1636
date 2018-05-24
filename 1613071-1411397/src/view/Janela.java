@@ -1,8 +1,5 @@
 package view;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
 import javax.swing.JFrame;
 
 import model.Jogo;
@@ -15,7 +12,7 @@ public class Janela extends JFrame
 	{
 		tabuleiro = new Tabuleiro(jogo);
 		
-		setSize(400,423);
+		setSize(406,429);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Xadrez");

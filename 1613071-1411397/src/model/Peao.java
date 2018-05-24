@@ -12,10 +12,10 @@ public class Peao extends Peca
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		Peca p = tabuleiro[xOrig][yOrig];
-		
+		Cor corP = p.getCor();
 		//caso peca for branca, movimentos sao somados; c.c. sao subtraidos
 		int m1, m2;
-		if ( tabuleiro[xOrig][yOrig].getCor() == Cor.branco )
+		if ( p.getCor() == Cor.branco )
 		{
 			m1 = 1;
 			m2 = 2;
@@ -28,7 +28,7 @@ public class Peao extends Peca
 		
 		// capturando uma peca nas diagonais
 		if((yDest == yOrig + m1) && ((xDest == xOrig + 1) || (xDest == xOrig - 1))) {
-			if(tabuleiro[xDest][yDest] != null) {
+			if(tabuleiro[xDest][yDest] != null && tabuleiro[xDest][yDest].getCor() != corP) {
 				this.verificaRainha(xDest, yDest, tabuleiro);
 				realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 			}
@@ -102,17 +102,5 @@ public class Peao extends Peca
 		}
 		return false;
 	}
-	
-	// classe j� herda esse m�todo, j� que ele � static e protected (s� classes filhas e do pacote podem usar)
-	/*
-	private void realizaMov (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) {
-		
-		Peca p = tabuleiro[xOrig][yOrig];
-		
-		tabuleiro[xDest][yDest] = p;
-		tabuleiro[xOrig][yOrig] = null;
-	
-	}
-	*/
 	
 }
