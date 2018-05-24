@@ -48,10 +48,6 @@ public class Rei extends Peca
 		{
 			return false;
 		}
-		else
-		{
-			return false;
-		}
 		//verificar se rei está sobre ataque
 		//verificando se a posicao final contem uma peca da cor oposta
 		if ( this.verificaUltimaCasa(xDest, yDest, tabuleiro[xOrig][yOrig].getCor(), tabuleiro) ) 
