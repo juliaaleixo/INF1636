@@ -103,19 +103,11 @@ public class Rainha extends Peca
 			return false;
 		}
 		//verificando se a posicao final contem uma peca da cor oposta
-		if ( tabuleiro[xDest][yDest] != null )
+		if ( this.verificaUltimaCasa(xDest, yDest, tabuleiro[xOrig][yOrig].getCor(), tabuleiro) ) 
 		{
-			if ( tabuleiro[xDest][yDest].getCor() != tabuleiro[xOrig][yOrig].getCor() )
-			{
-				this.verificaRainha(xDest, yDest, tabuleiro);
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	
 }
