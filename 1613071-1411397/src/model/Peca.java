@@ -32,14 +32,16 @@ public abstract class Peca
 		}
 	}
 	
-	protected boolean verificaUltimaCasa (int xDest, int yDest, Cor corP, Peca[][] tabuleiro) {
-		
+	protected boolean verificaUltimaCasa (int xDest, int yDest, Cor corP, Peca[][] tabuleiro) 
+	{
 		if ( tabuleiro[xDest][yDest] != null )
 		{
 			if ( tabuleiro[xDest][yDest].getCor() != corP )
 			{
 				this.verificaRainha(xDest, yDest, tabuleiro);
-			} else {
+			} 
+			else 
+			{
 				return false;
 			}
 		}

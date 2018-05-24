@@ -12,7 +12,7 @@ public class Janela extends JFrame
 	{
 		tabuleiro = new Tabuleiro(jogo);
 		
-		setSize(406,429);
+		setSize(400,422);
 		setResizable(false);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Xadrez");
