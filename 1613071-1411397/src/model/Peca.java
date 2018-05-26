@@ -24,23 +24,15 @@ public abstract class Peca
 		tabuleiro[xOrig][yOrig] = null;
 	}
 	
-	public void verificaRainha(int xDest, int yDest, Peca[][] tabuleiro) {
-		Peca p = tabuleiro[xDest][yDest];
-		
-		if(p instanceof Rainha) {
-			Rainha.decrementaQtdRainhas();
-		}
-	}
-	
 	protected boolean verificaUltimaCasa (int xDest, int yDest, Cor corP, Peca[][] tabuleiro) 
 	{
 		if ( tabuleiro[xDest][yDest] != null )
 		{
 			if ( tabuleiro[xDest][yDest].getCor() != corP )
 			{
-				this.verificaRainha(xDest, yDest, tabuleiro);
+				return true;
 			} 
-			else 
+			else
 			{
 				return false;
 			}

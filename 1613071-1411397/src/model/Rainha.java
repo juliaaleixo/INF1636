@@ -4,20 +4,10 @@ package model;
 
 public class Rainha extends Peca
 {
-	private static int qtdRainhas = 0;
 	
 	public Rainha (Cor cor)
 	{
 		super(cor);
-		qtdRainhas++;
-	}
-
-	public static void decrementaQtdRainhas () {
-		qtdRainhas--;
-	}
-	
-	public int getQtdRainhas () {
-		return qtdRainhas;
 	}
 	
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
@@ -102,8 +92,7 @@ public class Rainha extends Peca
 		{
 			return false;
 		}
-		//verificando se a posicao final contem uma peca da cor oposta
-		if ( this.verificaUltimaCasa(xDest, yDest, tabuleiro[xOrig][yOrig].getCor(), tabuleiro) ) 
+		if ( verificaUltimaCasa (xDest, yDest, tabuleiro[xOrig][yOrig].getCor(), tabuleiro) )
 		{
 			return true;
 		}

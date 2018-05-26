@@ -13,6 +13,7 @@ public class Peao extends Peca
 	{
 		Peca p = tabuleiro[xOrig][yOrig];
 		Cor corP = p.getCor();
+		
 		//caso peca for branca, movimentos sao somados; c.c. sao subtraidos
 		int m1, m2;
 		if ( p.getCor() == Cor.branco )
@@ -29,7 +30,6 @@ public class Peao extends Peca
 		// capturando uma peca nas diagonais
 		if((yDest == yOrig + m1) && ((xDest == xOrig + 1) || (xDest == xOrig - 1))) {
 			if(tabuleiro[xDest][yDest] != null && tabuleiro[xDest][yDest].getCor() != corP) {
-				this.verificaRainha(xDest, yDest, tabuleiro);
 				realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 			}
 		}
