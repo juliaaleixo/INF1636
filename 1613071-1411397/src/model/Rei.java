@@ -66,6 +66,7 @@ public class Rei extends Peca
 		{
 			for ( int j = 0; j < 8; j++ )
 			{
+				//verificando se a casa esta vazia
 				if ( tabuleiro[i][j] == null )
 				{
 					continue;
