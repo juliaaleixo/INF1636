@@ -3,8 +3,11 @@ package controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import model.Cor;
 import model.Jogo;
 import model.MovIlegalExcecao;
+import model.Peao;
+import model.Peca;
 import view.Janela;
 
 public class TabuleiroController implements MouseListener
@@ -63,6 +66,8 @@ public class TabuleiroController implements MouseListener
 			if ( jogo.tabuleiro[xOrig][yOrig] != null )
 			{
 				pecaSelecionada = true;
+				Boolean [][] posicoes = posicoesPossiveis(jogo.tabuleiro,xOrig,yOrig);
+				//usar array de posicoes para iluminar no tabuleiro posicoes possiveis da peca
 			}
 		}
 		else
@@ -100,5 +105,55 @@ public class TabuleiroController implements MouseListener
 	  public void mouseExited(MouseEvent e)
 	  {
 	  }
-	
+	  
+	  public Boolean[][] posicoesPossiveis(Peca[][] tabuleiro, int xOrig, int yOrig)
+	  {
+		  //funcao nao testada ainda! 
+		  Boolean posicoesPossiveis [][] = new Boolean[8][8];
+		  
+		  Peca p = tabuleiro[xOrig][yOrig];
+		  Cor cor = p.getCor();
+		  
+		  for ( int i = 0; i < 8; i++ )
+		  {
+			  for ( int j = 0; j < 8; j++ )
+			  {
+				  if ( cor == tabuleiro[i][j].getCor() )
+				  {
+					  posicoesPossiveis[i][j] = false;
+					  continue;
+				  }
+				  
+				  if ( p instanceof Peao )
+				  {
+					  int m1;
+					  if ( tabuleiro[i][j].getCor() == Cor.branco )
+					  {
+						  m1 = 1;
+					  }
+					  else
+					  {
+						  m1 = -1;
+					  }
+					  if ( (yDest == j + m1) && ((xDest == i + 1) || (xDest == i - 1)) )
+					  {
+						  posicoesPossiveis[i][j] = true;	
+						  continue;
+					  }
+				  }
+				  
+				  if ( p.caminhoLivre ( i, j, xDest, yDest, tabuleiro ) )
+				  {
+					  posicoesPossiveis[i][j] = true;
+				  }
+				  else
+				  {
+					  posicoesPossiveis[i][j] = false;
+				  }
+			  }
+		  }
+		  return posicoesPossiveis;
+	  }
+	  
 }
+
