@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -25,6 +26,8 @@ import model.Torre;
 public class Tabuleiro extends JPanel
 {
 	Jogo jogo;
+	Boolean posicoesPossiveis [][] = null;
+	
 	BufferedImage imagemPeaoBranco, imagemPeaoPreto;
 	BufferedImage imagemCavaloBranco, imagemCavaloPreto;
 	BufferedImage imagemBispoBranco, imagemBispoPreto;
@@ -79,6 +82,25 @@ public class Tabuleiro extends JPanel
 					g2d.setPaint(Color.WHITE);
 				}
 				g2d.fill(casa);
+			}
+		}
+		
+		// iluminando as casas de movimentos possiveis
+		if (posicoesPossiveis != null)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				for (int j = 0; j < 8; j++)
+				{
+					if ( posicoesPossiveis[i][j] == true)
+					{
+						Rectangle2D contorno = new Rectangle2D.Double(i*tamanho,(7-j)*tamanho,tamanho,tamanho);
+						
+						g2d.setStroke(new BasicStroke(3));
+						g2d.setPaint(Color.green);
+						g2d.draw(contorno);
+					}
+				}
 			}
 		}
 		
@@ -156,5 +178,10 @@ public class Tabuleiro extends JPanel
 				}		
 			}
 		}
+	}
+	
+	public void setPosicoesPossiveis ( Boolean [][] posicoesPossiveis )
+	{
+		this.posicoesPossiveis = posicoesPossiveis;
 	}
 }

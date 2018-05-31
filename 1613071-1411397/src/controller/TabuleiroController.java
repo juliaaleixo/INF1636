@@ -66,14 +66,19 @@ public class TabuleiroController implements MouseListener
 			if ( jogo.tabuleiro[xOrig][yOrig] != null )
 			{
 				pecaSelecionada = true;
+				
 				Boolean [][] posicoes = posicoesPossiveis(jogo.tabuleiro,xOrig,yOrig);
-				//usar array de posicoes para iluminar no tabuleiro posicoes possiveis da peca
+				janela.tabuleiro.setPosicoesPossiveis(posicoes);
+				
+				janela.tabuleiro.repaint();
 			}
 		}
 		else
 		{
 			xDest = getTileX(e.getX());
 			yDest = getTileY(e.getY());
+			
+			janela.tabuleiro.setPosicoesPossiveis(null);
 			movimentaPeca();
 			
 			pecaSelecionada = false;
@@ -118,18 +123,13 @@ public class TabuleiroController implements MouseListener
 		  {
 			  for ( int j = 0; j < 8; j++ )
 			  {
-				  if ( tabuleiro[i][j] == null )
+				  
+				  if ( p.caminhoLivre ( xOrig, yOrig, i, j, tabuleiro ) )
 				  {
-					  if ( p.caminhoLivre ( xOrig, yOrig, i, j, tabuleiro ) )
-					  {
-						  posicoesPossiveis[i][j] = true;
-					  }
-					  else
-					  {
-						  posicoesPossiveis[i][j] = false;
-					  }
+					  posicoesPossiveis[i][j] = true;
 				  }
-				  else 
+				  
+				  else if ( p instanceof Peao && tabuleiro[i][j] != null)
 				  {
 					  if ( cor == tabuleiro[i][j].getCor() )
 					  {
@@ -137,39 +137,35 @@ public class TabuleiroController implements MouseListener
 						  continue;
 					  }
 					  
-					  if ( p instanceof Peao )
+					  int m1;
+					  if ( tabuleiro[i][j].getCor() == Cor.branco )
 					  {
-						  int m1;
-						  if ( tabuleiro[i][j].getCor() == Cor.branco )
-						  {
-							  m1 = 1;
-						  }
-						  else
-						  {
-							  m1 = -1;
-						  }
-						  if ( (j == yOrig + m1) && ((i == xOrig + 1) || (i == xOrig - 1)) )
-						  {
-							  posicoesPossiveis[i][j] = true;	
-							  continue;
-						  }
-					  }
-					  
-					  if ( p.caminhoLivre ( xOrig, yOrig, i, j,tabuleiro ) )
-					  {
-						  posicoesPossiveis[i][j] = true;
+						  m1 = 1;
 					  }
 					  else
 					  {
-						  posicoesPossiveis[i][j] = false;
+						  m1 = -1;
 					  }
+					  
+					  if ( (j == yOrig + m1) && ((i == xOrig + 1) || (i == xOrig - 1)) )
+					  {
+						  posicoesPossiveis[i][j] = true;	
+						  continue;
+					  }
+					  else
+					  {
+						  posicoesPossiveis[i][j] = false;	
+						  continue;
+					  } 
 				  }
-				 
 				  
+				  else
+				  {
+					  posicoesPossiveis[i][j] = false;
+				  }
 			  }
 		  }
 		  return posicoesPossiveis;
-	  }
-	  
+	  }  
 }
 
