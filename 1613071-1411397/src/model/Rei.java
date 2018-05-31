@@ -61,52 +61,51 @@ public class Rei extends Peca
 		return false;
 	}
 	public boolean reiSobreAtaque(int xDest, int yDest, Peca[][] tabuleiro, Cor cor)
-	{
-		for ( int i = 0; i < 8; i++ )
-		{
-			for ( int j = 0; j < 8; j++ )
-			{
-				//verificando se a casa esta vazia
-				if ( tabuleiro[i][j] == null )
-				{
-					continue;
-				}
-				
-				Peca p = tabuleiro[i][j];
-				Cor corP = p.getCor();
-				
-				if ( cor == corP )
-				{
-					continue;
-				}
-				
-				if ( p instanceof Peao )
-				{
-					int m1;
-					if ( corP == Cor.branco )
-					{
-						m1 = 1;
-					}
-					else
-					{
-						m1 = -1;
-					}
-					if ( (yDest == j + m1) && ((xDest == i + 1) || (xDest == i - 1)) )
-					{
-						return true;
-						
-					}
-				}
-				else
-				{
-					if ( p.caminhoLivre ( i, j, xDest, yDest, tabuleiro ) )
-					{
-						return true;
-					}
-				}
-			}
-		}
-		return false;
-	}
+  	{
+ 		for ( int i = 0; i < 8; i++ )
+ 		{
+ 			for ( int j = 0; j < 8; j++ )
+ 			{
+ 				if ( tabuleiro[i][j] == null )
+ 				{
+ 					continue;
+ 				}
+ 				
+ 				Peca p = tabuleiro[i][j];
+ 				Cor corP = p.getCor();
+ 				
+ 				if ( cor == corP )
+ 				{
+ 					continue;
+ 				}
+ 				
+ 				if ( p instanceof Peao )
+ 				{
+ 					int m1;
+ 					if ( corP == Cor.branco )
+ 					{
+ 						m1 = 1;
+ 					}
+ 					else
+ 					{
+ 						m1 = -1;
+ 					}
+ 					if ( (yDest == j + m1) && ((xDest == i + 1) || (xDest == i - 1)) )
+ 					{
+ 						return true;
+ 						
+ 					}
+ 				}
+ 				else
+ 				{
+ 					if ( p.caminhoLivre ( i, j, xDest, yDest, tabuleiro ) )
+ 					{
+ 						return true;
+ 					}
+ 				}
+ 			}
+ 		}
+  		return false;
+  	}
 }
 

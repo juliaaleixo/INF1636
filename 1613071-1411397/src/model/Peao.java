@@ -11,44 +11,22 @@ public class Peao extends Peca
 	
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
-		Peca p = tabuleiro[xOrig][yOrig];
-		Cor corP = p.getCor();
-		
-		//caso peca for branca, movimentos sao somados; c.c. sao subtraidos
-		int m1, m2;
-		if ( p.getCor() == Cor.branco )
-		{
-			m1 = 1;
-			m2 = 2;
-		}
-		else
-		{
-			m1 = -1;
-			m2 = -2;
-		}
-		
-		// capturando uma peca nas diagonais
-		if((yDest == yOrig + m1) && ((xDest == xOrig + 1) || (xDest == xOrig - 1))) {
-			if(tabuleiro[xDest][yDest] != null && tabuleiro[xDest][yDest].getCor() != corP) {
-				realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
-			}
-		}
-		
 		// andando para frente, caso nao haja peca no caminho
-		else if(primeiroMov == true) {
-			if((yDest == yOrig + m2 || yDest == yOrig + m1) && (xDest == xOrig)) {
-				if(caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro)) {
-					realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
+		if ( primeiroMov == true ) 
+		{
+				if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) ) 
+				{
+					realizaMov (xOrig,yOrig,xDest,yDest,tabuleiro);
 					this.primeiroMov = false;
 				} 
-				else {
+				else 
+				{
 					String str = "Proibido mover peao para essa localizacao";
 					throw new MovIlegalExcecao(str);
 				}
-			}
 		} 
 		else {
-			if((yDest == yOrig + m1) && (xDest == xOrig)) {
+			
 				if(caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro)) {
 					realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
 				} 
@@ -56,7 +34,6 @@ public class Peao extends Peca
 					String str = "Proibido mover peao para essa localizacao";
 					throw new MovIlegalExcecao(str);
 				}
-			}
 		}
 	} 
 
@@ -64,6 +41,7 @@ public class Peao extends Peca
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
 		int m1, m2;
+		
 		if ( tabuleiro[xOrig][yOrig].getCor() == Cor.branco )
 		{
 			m1 = 1;
@@ -75,6 +53,15 @@ public class Peao extends Peca
 			m2 = -2;
 		}
 		
+		//verificando se é possivel comer uma peça
+		if((yDest == yOrig + m1) && ((xDest == xOrig + 1) || (xDest == xOrig - 1))) 
+		{
+			Peca p = tabuleiro[xOrig][yOrig];
+			if(tabuleiro[xDest][yDest] != null && tabuleiro[xDest][yDest].getCor() != p.getCor())
+			{
+				return true;
+			}
+		}
 		if ( primeiroMov )
 		{
 			if ( yDest == yOrig + m2 && xDest == xOrig )
@@ -95,9 +82,12 @@ public class Peao extends Peca
 		}
 		else 
 		{
-			if ( tabuleiro[xDest][yDest] == null ) 
+			if ( (yDest == yOrig + m1) && (xDest == xOrig) ) 
 			{
-				return true;
+				if ( tabuleiro[xDest][yDest] == null ) 
+				{
+					return true;
+				}
 			}
 		}
 		return false;

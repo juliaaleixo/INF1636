@@ -113,7 +113,6 @@ public class TabuleiroController implements MouseListener
 	  
 	  public Boolean[][] posicoesPossiveis(Peca[][] tabuleiro, int xOrig, int yOrig)
 	  {
-		  //funcao nao testada ainda! 
 		  Boolean posicoesPossiveis [][] = new Boolean[8][8];
 		  
 		  Peca p = tabuleiro[xOrig][yOrig];
@@ -128,37 +127,6 @@ public class TabuleiroController implements MouseListener
 				  {
 					  posicoesPossiveis[i][j] = true;
 				  }
-				  
-				  else if ( p instanceof Peao && tabuleiro[i][j] != null)
-				  {
-					  if ( cor == tabuleiro[i][j].getCor() )
-					  {
-						  posicoesPossiveis[i][j] = false;
-						  continue;
-					  }
-					  
-					  int m1;
-					  if ( tabuleiro[i][j].getCor() == Cor.branco )
-					  {
-						  m1 = 1;
-					  }
-					  else
-					  {
-						  m1 = -1;
-					  }
-					  
-					  if ( (j == yOrig + m1) && ((i == xOrig + 1) || (i == xOrig - 1)) )
-					  {
-						  posicoesPossiveis[i][j] = true;	
-						  continue;
-					  }
-					  else
-					  {
-						  posicoesPossiveis[i][j] = false;	
-						  continue;
-					  } 
-				  }
-				  
 				  else
 				  {
 					  posicoesPossiveis[i][j] = false;
