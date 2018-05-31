@@ -118,38 +118,54 @@ public class TabuleiroController implements MouseListener
 		  {
 			  for ( int j = 0; j < 8; j++ )
 			  {
-				  if ( cor == tabuleiro[i][j].getCor() )
+				  if ( tabuleiro[i][j] == null )
 				  {
-					  posicoesPossiveis[i][j] = false;
-					  continue;
-				  }
-				  
-				  if ( p instanceof Peao )
-				  {
-					  int m1;
-					  if ( tabuleiro[i][j].getCor() == Cor.branco )
+					  if ( p.caminhoLivre ( xOrig, yOrig, i, j, tabuleiro ) )
 					  {
-						  m1 = 1;
+						  posicoesPossiveis[i][j] = true;
 					  }
 					  else
 					  {
-						  m1 = -1;
+						  posicoesPossiveis[i][j] = false;
 					  }
-					  if ( (yDest == j + m1) && ((xDest == i + 1) || (xDest == i - 1)) )
+				  }
+				  else 
+				  {
+					  if ( cor == tabuleiro[i][j].getCor() )
 					  {
-						  posicoesPossiveis[i][j] = true;	
+						  posicoesPossiveis[i][j] = false;
 						  continue;
 					  }
+					  
+					  if ( p instanceof Peao )
+					  {
+						  int m1;
+						  if ( tabuleiro[i][j].getCor() == Cor.branco )
+						  {
+							  m1 = 1;
+						  }
+						  else
+						  {
+							  m1 = -1;
+						  }
+						  if ( (j == yOrig + m1) && ((i == xOrig + 1) || (i == xOrig - 1)) )
+						  {
+							  posicoesPossiveis[i][j] = true;	
+							  continue;
+						  }
+					  }
+					  
+					  if ( p.caminhoLivre ( xOrig, yOrig, i, j,tabuleiro ) )
+					  {
+						  posicoesPossiveis[i][j] = true;
+					  }
+					  else
+					  {
+						  posicoesPossiveis[i][j] = false;
+					  }
 				  }
+				 
 				  
-				  if ( p.caminhoLivre ( i, j, xDest, yDest, tabuleiro ) )
-				  {
-					  posicoesPossiveis[i][j] = true;
-				  }
-				  else
-				  {
-					  posicoesPossiveis[i][j] = false;
-				  }
 			  }
 		  }
 		  return posicoesPossiveis;
