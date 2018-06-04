@@ -52,12 +52,6 @@ public class TabuleiroController implements MouseListener
 	
 	public void mousePressed(MouseEvent e)
 	{
-		
-		// debug purposes
-	    String str = "Mouse Pressed - x: " + e.getX() + " y: " + e.getY();
-	    System.out.println(str);
-	    System.out.println(String.valueOf(getTileX(e.getX())) + " " + String.valueOf(getTileY(e.getY())));
-	   
 		if ( pecaSelecionada == false )
 		{
 			xOrig = getTileX(e.getX());
@@ -73,34 +67,54 @@ public class TabuleiroController implements MouseListener
 				janela.tabuleiro.repaint();
 			}
 		}
-		else
+		else 
 		{
-			xDest = getTileX(e.getX());
-			yDest = getTileY(e.getY());
+			int x = getTileX(e.getX());
+			int y = getTileY(e.getY());
 			
-			janela.tabuleiro.setPosicoesPossiveis(null);
-			movimentaPeca();
-			
-			pecaSelecionada = false;
+			if ( jogo.tabuleiro[x][y] != null )
+			{
+				if ( jogo.tabuleiro[x][y].getCor() == jogo.tabuleiro[xOrig][yOrig].getCor() )
+				{
+					xOrig = x;
+					yOrig = y;
+					
+					Boolean [][] posicoes = posicoesPossiveis(jogo.tabuleiro,xOrig,yOrig);
+					janela.tabuleiro.setPosicoesPossiveis(posicoes);
+						
+					janela.tabuleiro.repaint();		
+				}
+				else
+				{
+					xDest = x;
+					yDest = y;
+						
+					janela.tabuleiro.setPosicoesPossiveis(null);
+					movimentaPeca();
+						
+					pecaSelecionada = false;
+				}
+			}	
+			else
+			{
+				xDest = x;
+				yDest = y;
+					
+				janela.tabuleiro.setPosicoesPossiveis(null);
+				movimentaPeca();
+					
+				pecaSelecionada = false;
+			}
 		}
 		
 	  }
 	
 	  public void mouseReleased(MouseEvent e)
 	  {
-//		clickX = e.getX();
-//		clickY = e.getY();
-//		String str = "Mouse Released";
-//		System.out.println(str);
-
 	  }
 	  
 	  public void mouseClicked(MouseEvent e)
 	  {
-//	    clickX = e.getX();
-//	    clickY = e.getY();
-//	    String str = "Mouse Clicked";
-//	    System.out.println(str);
 	  }
 	  
 	  public void mouseEntered(MouseEvent e)
