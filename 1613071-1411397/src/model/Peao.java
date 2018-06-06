@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Peao extends Peca
 {
 	boolean primeiroMov = true;
@@ -35,14 +37,26 @@ public class Peao extends Peca
 				{
 					if ( yDest == 7 )
 					{
+						ArrayList<Object> obj = new ArrayList<Object>();
+						obj.add("promocao");
+						obj.add(xDest);
+						obj.add(yDest);
 						
+						this.setChanged();
+						this.notifyObservers(obj);
 					}
 				}
 				else
 				{
 					if ( yDest == 0 )
 					{
+						ArrayList<Object> obj = new ArrayList<Object>();
+						obj.add("promocao");
+						obj.add(xDest);
+						obj.add(yDest);
 						
+						this.setChanged();
+						this.notifyObservers(obj);
 					}
 				}
 			} 

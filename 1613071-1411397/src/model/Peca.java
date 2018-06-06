@@ -1,6 +1,8 @@
 package model;
 
-public abstract class Peca 
+import java.util.Observable;
+
+public abstract class Peca extends Observable
 {
 	private Cor cor;
 	
