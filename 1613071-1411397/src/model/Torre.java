@@ -2,10 +2,18 @@ package model;
 
 public class Torre extends Peca
 {
+	private Boolean movimentou = false;
+	
 	public Torre (Cor cor)
 	{
 		super(cor);
 	}
+	
+	public Boolean getMovimentou()
+	{
+		return movimentou;
+	}
+	
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if( xOrig == xDest && yOrig == yDest )
@@ -16,6 +24,7 @@ public class Torre extends Peca
 		if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) )
 		{
 			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
+			movimentou = true;
 		}
 		else
 		{

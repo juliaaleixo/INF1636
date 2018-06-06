@@ -11,7 +11,6 @@ public class Peao extends Peca
 	
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
-		// andando para frente, caso nao haja peca no caminho
 		if ( primeiroMov == true ) 
 		{
 				if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) ) 
@@ -25,15 +24,33 @@ public class Peao extends Peca
 					throw new MovIlegalExcecao(str);
 				}
 		} 
-		else {
-			
-				if(caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro)) {
-					realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
-				} 
-				else {
-					String str = "Proibido mover peao para essa localizacao";
-					throw new MovIlegalExcecao(str);
+		else 
+		{
+			if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) ) 
+			{
+				realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
+				
+				//verificar se peao pode ser promovido
+				if ( this.getCor() == Cor.branco )
+				{
+					if ( yDest == 7 )
+					{
+						
+					}
 				}
+				else
+				{
+					if ( yDest == 0 )
+					{
+						
+					}
+				}
+			} 
+			else 
+			{
+				String str = "Proibido mover peao para essa localizacao";
+				throw new MovIlegalExcecao(str);
+			}
 		}
 	} 
 
@@ -54,7 +71,7 @@ public class Peao extends Peca
 		}
 		
 		//verificando se é possivel comer uma peça
-		if((yDest == yOrig + m1) && ((xDest == xOrig + 1) || (xDest == xOrig - 1))) 
+		if( (yDest == yOrig + m1) && ((xDest == xOrig + 1) || (xDest == xOrig - 1)) ) 
 		{
 			Peca p = tabuleiro[xOrig][yOrig];
 			if(tabuleiro[xDest][yDest] != null && tabuleiro[xDest][yDest].getCor() != p.getCor())

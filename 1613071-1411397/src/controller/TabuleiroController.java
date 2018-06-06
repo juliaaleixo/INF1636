@@ -36,8 +36,6 @@ public class TabuleiroController implements MouseListener
 		{
 			return;
 		}
-		
-		janela.tabuleiro.repaint();
 	}
 	
 	// Pega uma coordenada da janela X e a transforma numa posicao X da matriz de pe�as
@@ -91,7 +89,9 @@ public class TabuleiroController implements MouseListener
 						
 					janela.tabuleiro.setPosicoesPossiveis(null);
 					movimentaPeca();
-						
+					
+					janela.tabuleiro.repaint();
+					
 					pecaSelecionada = false;
 				}
 			}	
@@ -102,7 +102,9 @@ public class TabuleiroController implements MouseListener
 					
 				janela.tabuleiro.setPosicoesPossiveis(null);
 				movimentaPeca();
-					
+				
+				janela.tabuleiro.repaint();	
+				
 				pecaSelecionada = false;
 			}
 		}

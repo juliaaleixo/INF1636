@@ -2,20 +2,40 @@ package model;
 
 public class Rei extends Peca
 {
+	Boolean movimentou = false;
+	
 	public Rei (Cor cor)
 	{
 		super(cor);
 	}
+	
+	public Boolean getMovimentou()
+	{
+		return movimentou;
+	}
+	
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
-		if( xOrig == xDest && yOrig == yDest )
+		if ( xOrig == xDest && yOrig == yDest )
 		{
 			String str = "Proibido mover rei para essa localizacao";
 			throw new MovIlegalExcecao(str);
 		}
 		if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) )
 		{
+			if ( roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiro) )
+			{
+				if ( xDest > xOrig )
+				{
+					tabuleiro[7][yOrig].movimento(7, yOrig, 5, yDest, tabuleiro);
+				}
+				else
+				{
+					tabuleiro[0][yOrig].movimento(0, yOrig, 3, yDest, tabuleiro);
+				}
+			}
 			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
+			movimentou = true;
 		}
 		else
 		{
@@ -25,8 +45,11 @@ public class Rei extends Peca
 	}
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
-		//incompleta 
-		
+		// verifica roque
+		if ( roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiro) )
+		{
+			return true;
+		}
 		// andar vertical
 		if ( xOrig == xDest )
 		{
@@ -107,5 +130,48 @@ public class Rei extends Peca
  		}
   		return false;
   	}
+	
+	public Boolean roquePermitido (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
+	{	
+		//verificar se roque curto 
+		if ( this.movimentou == false )
+		{
+			//roque direita
+			if ( xDest == xOrig + 2 && yOrig == yDest)
+			{
+				Peca p = tabuleiro[7][yOrig];
+				if ( p instanceof Torre )
+				{
+					// verificando se peca é torre e se já se movimentou
+					if ( p.getCor() == this.getCor() && ((Torre) p).getMovimentou() == false )
+					{
+						//verificando se existe alguma peca entre a torre e o rei
+						if( tabuleiro[xOrig+1][yOrig] == null && tabuleiro[xOrig+2][yOrig] == null )
+						{
+							return true;
+						}
+					}
+				}
+			}
+			//roque esquerda
+			if ( xDest == xOrig - 2 && yOrig == yDest)
+			{
+				Peca p = tabuleiro[0][yOrig];
+				if ( p instanceof Torre )
+				{
+					// verificando se peca é torre e se já se movimentou
+					if ( p.getCor() == this.getCor() && ((Torre) p).getMovimentou() == false )
+					{
+						//verificando se existe alguma peca entre a torre e o rei
+						if( tabuleiro[xOrig-1][yOrig] == null && tabuleiro[xOrig-2][yOrig] == null && tabuleiro[xOrig-3][yOrig] == null)
+						{
+							return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
 }
 
