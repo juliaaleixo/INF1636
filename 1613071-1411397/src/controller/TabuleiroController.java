@@ -166,8 +166,7 @@ public class TabuleiroController implements MouseListener, Observer
 
 	public void update (Observable o, Object arg) 
 	{
-		System.out.println("entrou no update");
-		if ( ((ArrayList<Object>)arg).get(0).equals("promocao") )
+		if ( ((ArrayList<Object>) arg).get(0).equals("promocao") )
 		{
 			int x = (int) ((ArrayList<Object>)arg).get(1);
 			int y = (int) ((ArrayList<Object>)arg).get(2);
