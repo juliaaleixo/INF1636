@@ -178,11 +178,11 @@ public class TabuleiroController implements MouseListener, Observer
 	
 	public void promocao ( int x, int y )
 	{
-		Object[] possibilities = {"Rainha","Torre", "Bispo", "Cavalo"};
-		String s = (String)JOptionPane.showInputDialog(null,"Escolha a nova peca:\n","Promocao do Peao",
-													JOptionPane.PLAIN_MESSAGE,null,possibilities, "Rainha");
+		Object[] possibilities = { "Rainha", "Torre", "Bispo", "Cavalo" };
+		String s = (String)JOptionPane.showInputDialog ( null,"Escolha a nova peca:\n","Promocao do Peao",
+													JOptionPane.PLAIN_MESSAGE,null,possibilities, "Rainha" );
 
-		if ( (s != null) && (s.length() > 0) ) 
+		if ( ( s != null ) && ( s.length() > 0 ) ) 
 		{
 			Peca p = jogo.tabuleiro[x][y];
 			
