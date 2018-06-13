@@ -23,6 +23,7 @@ public class TabuleiroController implements MouseListener, Observer
 {
 	int xOrig, xDest, yOrig, yDest; 
 	boolean pecaSelecionada; //indica se a peca ja foi selecionada (para ver se Ã© peca de origem ou destino)
+	Cor rodadaAtual = Cor.branco;
 	Jogo jogo;
 	Janela janela;
 	
@@ -52,6 +53,11 @@ public class TabuleiroController implements MouseListener, Observer
 		try 
 		{
 			jogo.tabuleiro[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, jogo.tabuleiro);
+			if(rodadaAtual == Cor.branco) {
+				rodadaAtual = Cor.preto;
+			} else {
+				rodadaAtual = Cor.branco;
+			}
 		} 
 		catch (MovIlegalExcecao e)
 		{
@@ -78,8 +84,15 @@ public class TabuleiroController implements MouseListener, Observer
 			xOrig = getTileX(e.getX());
 			yOrig = getTileY(e.getY());
 			
+			
+			
 			if ( jogo.tabuleiro[xOrig][yOrig] != null )
 			{
+				if(jogo.tabuleiro[xOrig][yOrig].getCor() != rodadaAtual)
+				{
+					System.out.println("A jogada é das peças " + rodadaAtual.toString());
+					return;
+				}
 				pecaSelecionada = true;
 				
 				Boolean [][] posicoes = posicoesPossiveis(jogo.tabuleiro,xOrig,yOrig);
@@ -102,7 +115,7 @@ public class TabuleiroController implements MouseListener, Observer
 					
 					Boolean [][] posicoes = posicoesPossiveis(jogo.tabuleiro,xOrig,yOrig);
 					janela.tabuleiro.setPosicoesPossiveis(posicoes);
-						
+					
 					janela.tabuleiro.repaint();		
 				}
 				else
@@ -117,6 +130,7 @@ public class TabuleiroController implements MouseListener, Observer
 					
 					pecaSelecionada = false;
 				}
+				
 			}	
 			else
 			{
@@ -130,6 +144,7 @@ public class TabuleiroController implements MouseListener, Observer
 				
 				pecaSelecionada = false;
 			}
+			
 		}
 		
 	  }
