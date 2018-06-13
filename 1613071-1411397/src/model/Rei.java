@@ -23,7 +23,7 @@ public class Rei extends Peca
 		}
 		if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) )
 		{
-			// caso o roque seja permitido, a torre tambem precisa realizar o movimento
+			// caso o movimento seja o roque, a torre tambem precisa realizar o movimento
 			if ( roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiro) )
 			{
 				if ( xDest > xOrig )
