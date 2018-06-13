@@ -23,6 +23,7 @@ public class Rei extends Peca
 		}
 		if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) )
 		{
+			// caso o roque seja permitido, a torre tambem precisa realizar o movimento
 			if ( roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiro) )
 			{
 				if ( xDest > xOrig )
@@ -170,6 +171,37 @@ public class Rei extends Peca
 					}
 				}
 			}
+		}
+		return false;
+	}
+	public boolean xeque (int xOrig, int yOrig, Peca[][] tabuleiro, Cor cor)
+	{
+		//verifica se posicao atual do rei esta sobre ataque
+		if ( reiSobreAtaque(xOrig, yOrig, tabuleiro, cor) )
+		{
+			return true;
+		}
+		return false;
+	}
+	public boolean xequeMate (int xOrig, int yOrig, Peca[][] tabuleiro, Cor cor)
+	{
+		//incompleta: tem que verificar se a peca que esta atacando n pode ser capturada e nenhuma peca pode se colocar na frente
+		
+		//verifica se posicao atual do rei esta sobre ataque
+		if ( xeque(xOrig, yOrig, tabuleiro, cor))
+		{
+			for ( int i = 0; i < 8; i++ )
+			{
+				for ( int j = 0; j < 8; j++ )
+				{
+					//verifica se o rei pode se movimentar
+					if ( caminhoLivre(xOrig, yOrig, i, j, tabuleiro) == true )
+					{
+						return false;
+					}
+				}
+			}
+			return true;
 		}
 		return false;
 	}

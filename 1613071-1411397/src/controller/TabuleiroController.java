@@ -16,6 +16,7 @@ import model.MovIlegalExcecao;
 import model.Peao;
 import model.Peca;
 import model.Rainha;
+import model.Rei;
 import model.Torre;
 import view.Janela;
 
@@ -53,10 +54,26 @@ public class TabuleiroController implements MouseListener, Observer
 		try 
 		{
 			jogo.tabuleiro[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, jogo.tabuleiro);
-			if(rodadaAtual == Cor.branco) {
+			
+			if ( rodadaAtual == Cor.branco ) 
+			{
 				rodadaAtual = Cor.preto;
-			} else {
+			} 
+			else 
+			{
 				rodadaAtual = Cor.branco;
+			}
+			
+			Boolean [][] reisEmXeque = reisEmXeque(jogo.tabuleiro);
+			for ( int i = 0; i < 8; i++ )
+			{
+				  for ( int j = 0; j < 8; j++ )
+				  { 
+					  if ( reisEmXeque[i][j] == true )
+					  {
+						  System.out.println("Xeque");
+					  }
+				  }
 			}
 		} 
 		catch (MovIlegalExcecao e)
@@ -90,7 +107,7 @@ public class TabuleiroController implements MouseListener, Observer
 			{
 				if(jogo.tabuleiro[xOrig][yOrig].getCor() != rodadaAtual)
 				{
-					System.out.println("A jogada é das peças " + rodadaAtual.toString());
+					System.out.println("A jogada ï¿½ das peï¿½as " + rodadaAtual.toString());
 					return;
 				}
 				pecaSelecionada = true;
@@ -178,47 +195,74 @@ public class TabuleiroController implements MouseListener, Observer
 		  }
 		  return posicoesPossiveis;
 	  }
+	  
+	  public Boolean[][] reisEmXeque ( Peca[][] tabuleiro )
+	  {
+		  Boolean reisEmXeque [][] = new Boolean[8][8];
+		  
+		  for ( int i = 0; i < 8; i++ )
+		  {
+			  for ( int j = 0; j < 8; j++ )
+			  {
+				  if ( tabuleiro[i][j] != null )
+				  {
+					  Peca p = tabuleiro[i][j];
+				  
+					  if ( p instanceof Rei ) 
+					  {
+						  if ( ((Rei) p).xeque(i, j, tabuleiro, p.getCor()) )
+						  {	
+							  reisEmXeque[i][j] = true;
+							  continue;
+						  }
+					  }
+				  }
+				  reisEmXeque[i][j] = false;
+			  }
+		  }
+		  return reisEmXeque;  
+	  }
 
-	public void update (Observable o, Object arg) 
-	{
-		if ( ((ArrayList<Object>) arg).get(0).equals("promocao") )
-		{
-			int x = (int) ((ArrayList<Object>)arg).get(1);
-			int y = (int) ((ArrayList<Object>)arg).get(2);
+	  public void update (Observable o, Object arg) 
+	  {
+		  if ( ((ArrayList<Object>) arg).get(0).equals("promocao") )
+		  {
+			  int x = (int) ((ArrayList<Object>)arg).get(1);
+			  int y = (int) ((ArrayList<Object>)arg).get(2);
 
-			promocao(x, y);
-		}
-	}  
+			  promocao(x, y);
+		  }
+	  }  
 	
-	public void promocao ( int x, int y )
-	{
-		Object[] possibilities = { "Rainha", "Torre", "Bispo", "Cavalo" };
-		String s = (String)JOptionPane.showInputDialog ( null,"Escolha a nova peca:\n","Promocao do Peao",
+	  public void promocao ( int x, int y )
+	  {
+		  Object[] possibilities = { "Rainha", "Torre", "Bispo", "Cavalo" };
+		  String s = (String)JOptionPane.showInputDialog ( null,"Escolha a nova peca:\n","Promocao do Peao",
 													JOptionPane.PLAIN_MESSAGE,null,possibilities, "Rainha" );
 
-		if ( ( s != null ) && ( s.length() > 0 ) ) 
-		{
-			Peca p = jogo.tabuleiro[x][y];
+		  if ( ( s != null ) && ( s.length() > 0 ) ) 
+		  {
+			  Peca p = jogo.tabuleiro[x][y];
 			
-		    if ( s.equals("Cavalo") )  
-		    {
-		    		jogo.tabuleiro[x][y] = new Cavalo (p.getCor());
-		    }
-		    else if ( s.equals("Torre") )
-		    {
-		    		jogo.tabuleiro[x][y] = new Torre (p.getCor());
-		    }
-		    else if ( s.equals("Bispo") )
-		    {
-		    		jogo.tabuleiro[x][y] = new Bispo (p.getCor());
-		    }
-		    else
-		    {
-		    		jogo.tabuleiro[x][y] = new Rainha (p.getCor());
-		    }
-		    return;
-		}
-		promocao(x, y);
-	}
+			  if ( s.equals("Cavalo") )  
+			  {
+		    			jogo.tabuleiro[x][y] = new Cavalo (p.getCor());
+			  }
+			  else if ( s.equals("Torre") )
+			  {
+		    			jogo.tabuleiro[x][y] = new Torre (p.getCor());
+			  }
+			  else if ( s.equals("Bispo") )
+			  {
+		    			jogo.tabuleiro[x][y] = new Bispo (p.getCor());
+			  }
+			  else
+			  {
+		    			jogo.tabuleiro[x][y] = new Rainha (p.getCor());
+			  }
+			  return;
+		  }
+		  promocao(x, y);
+	  }
 }
 
