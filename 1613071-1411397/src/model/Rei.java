@@ -188,7 +188,7 @@ public class Rei extends Peca
 		//incompleta: tem que verificar se a peca que esta atacando n pode ser capturada e nenhuma peca pode se colocar na frente
 		
 		//verifica se posicao atual do rei esta sobre ataque
-		if ( xeque(xOrig, yOrig, tabuleiro, cor))
+		if ( xeque(xOrig, yOrig, tabuleiro, cor) )
 		{
 			for ( int i = 0; i < 8; i++ )
 			{
