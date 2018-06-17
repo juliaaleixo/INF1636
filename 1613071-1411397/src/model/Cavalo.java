@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 public class Cavalo extends Peca
 {
 
@@ -17,6 +19,8 @@ public class Cavalo extends Peca
 		if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) )
 		{
 			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
+			
+			movRealizado();
 		}
 		else
 		{
@@ -27,8 +31,8 @@ public class Cavalo extends Peca
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
 		// se anda 2 em X anda 1 em Y e vice versa.
-		// Se anda 2 em Y, X será xOrig-1 ou xOrig+1
-		// Se anda 2 em X, Y será yOrig-1 ou yOrig+1
+		// Se anda 2 em Y, X serï¿½ xOrig-1 ou xOrig+1
+		// Se anda 2 em X, Y serï¿½ yOrig-1 ou yOrig+1
 		// Nao importa a cor da peca, sempre anda em todas as direcoes em L
 		Peca p = tabuleiro[xOrig][yOrig];
 		

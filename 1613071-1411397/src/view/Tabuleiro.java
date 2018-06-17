@@ -8,9 +8,13 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.Bispo;
@@ -23,7 +27,7 @@ import model.Rainha;
 import model.Rei;
 import model.Torre;
 
-public class Tabuleiro extends JPanel
+public class Tabuleiro extends JPanel implements Observer 
 {
 	Jogo jogo;
 	Boolean posicoesPossiveis [][] = null;
@@ -183,5 +187,14 @@ public class Tabuleiro extends JPanel
 	public void setPosicoesPossiveis ( Boolean [][] posicoesPossiveis )
 	{
 		this.posicoesPossiveis = posicoesPossiveis;
+		repaint();
+	}
+	
+	public void update(Observable o, Object arg) 
+	{
+		if ( ((ArrayList<Object>) arg).get(0).equals("repaint") )
+		{
+			repaint();
+		}
 	}
 }

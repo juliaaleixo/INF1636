@@ -20,6 +20,8 @@ public class Rainha extends Peca
 		if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) )
 		{
 			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
+			
+			movRealizado();
 		}
 		else
 		{

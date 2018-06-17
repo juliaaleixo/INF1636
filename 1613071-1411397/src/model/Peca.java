@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 public abstract class Peca extends Observable
@@ -40,5 +41,13 @@ public abstract class Peca extends Observable
 			}
 		}
 		return true;
+	}
+	public void movRealizado()
+	{
+		ArrayList<Object> obj = new ArrayList<Object>();
+		obj.add("repaint");
+	
+		this.setChanged();
+		this.notifyObservers(obj);
 	}
 }
