@@ -73,7 +73,6 @@ public class TabuleiroController implements MouseListener, Observer
 					  if ( reisEmXeque[i][j] == true )
 					  {
 						  JOptionPane.showMessageDialog(null, "Xeque");
-						  System.out.println("Xeque");
 					  }
 				  }
 			}
