@@ -102,13 +102,11 @@ public class TabuleiroController implements MouseListener, Observer
 			xOrig = getTileX(e.getX());
 			yOrig = getTileY(e.getY());
 			
-			
-			
 			if ( jogo.tabuleiro[xOrig][yOrig] != null )
 			{
 				if(jogo.tabuleiro[xOrig][yOrig].getCor() != rodadaAtual)
 				{
-					System.out.println("A jogada e das pecas " + rodadaAtual.toString());
+					System.out.println("A jogada e dxs " + rodadaAtual.toString());
 					return;
 				}
 				pecaSelecionada = true;
@@ -137,11 +135,14 @@ public class TabuleiroController implements MouseListener, Observer
 				{
 					xDest = x;
 					yDest = y;
-						
-					janela.tabuleiro.setPosicoesPossiveis(null);
-					movimentaPeca();
 					
-					pecaSelecionada = false;
+					if ( !jogo.reiDesprotegido( xOrig, yOrig, xDest, yDest ) )
+					{
+						janela.tabuleiro.setPosicoesPossiveis(null);
+						movimentaPeca();
+					
+						pecaSelecionada = false;
+					}
 				}
 				
 			}	
@@ -150,10 +151,13 @@ public class TabuleiroController implements MouseListener, Observer
 				xDest = x;
 				yDest = y;
 					
-				janela.tabuleiro.setPosicoesPossiveis(null);
-				movimentaPeca();	
+				if ( !jogo.reiDesprotegido( xOrig, yOrig, xDest, yDest ) )
+				{
+					janela.tabuleiro.setPosicoesPossiveis(null);
+					movimentaPeca();
 				
-				pecaSelecionada = false;
+					pecaSelecionada = false;
+				}
 			}
 			
 		}

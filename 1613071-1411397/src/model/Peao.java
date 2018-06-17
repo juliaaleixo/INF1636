@@ -10,7 +10,14 @@ public class Peao extends Peca
 	{
 		super (cor);
 	}
-	
+	public boolean getPrimeiroMov()
+	{
+		return primeiroMov;
+	}
+	public void setPrimeiroMov( boolean mov )
+	{
+		this.primeiroMov = mov;
+	}
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if ( primeiroMov == true ) 
