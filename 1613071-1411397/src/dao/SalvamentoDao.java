@@ -35,7 +35,7 @@ public class SalvamentoDao {
 		File dir = null;
 		
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","xdz"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","xd"));
 		
 		int result = fileChooser.showSaveDialog(frame);
 		
