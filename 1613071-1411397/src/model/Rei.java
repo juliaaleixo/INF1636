@@ -236,18 +236,42 @@ public class Rei extends Peca
 							//gravar se o movimento do peao foi o primeiro para depois restaura-lo
 							if ( tabuleiroAuxiliar[iOrig][jOrig] instanceof Peao )
 							{
-								primMov = ((Peao)tabuleiroAuxiliar[iOrig][jOrig]).getPrimeiroMov();
-							}
-							
-							tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
-							
-							if ( tabuleiroAuxiliar[iDest][jDest] instanceof Peao)
-							{
-								((Peao)tabuleiroAuxiliar[iDest][jDest]).setPrimeiroMov(primMov);
-								
 								if ( jDest == 7 || jDest == 0 )
 								{
-									tabuleiroAuxiliar[iDest][jDest].movimento(iDest, jDest, iOrig, jOrig, tabuleiroAuxiliar);
+									Peca rei = tabuleiroAuxiliar[xRei][yRei];
+									Cor cor = tabuleiroAuxiliar[iOrig][jOrig].getCor();
+									tabuleiroAuxiliar[iOrig][jOrig] = null;
+									
+									tabuleiroAuxiliar[iDest][jDest] = new Rainha(cor);
+									if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
+									{
+										return true;
+									}
+									
+									tabuleiroAuxiliar[iDest][jDest] = new Torre(cor);
+									if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
+									{
+										return true;
+									}
+									
+									tabuleiroAuxiliar[iDest][jDest] = new Bispo(cor);
+									if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
+									{
+										return true;
+									}
+									
+									tabuleiroAuxiliar[iDest][jDest] = new Torre(cor);
+									if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
+									{
+										return true;
+									}
+									return false;
+								}
+								else
+								{
+									primMov = ((Peao)tabuleiroAuxiliar[iOrig][jOrig]).getPrimeiroMov();
+									tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+									((Peao)tabuleiroAuxiliar[iDest][jDest]).setPrimeiroMov(primMov);
 								}
 							}
 						}

@@ -81,22 +81,60 @@ public class Jogo implements Serializable
 		try
 		{
 			//gravar se o movimento do peao foi o primeiro para depois restaura-lo
-			if ( tabuleiroAuxiliar[xOrig][yOrig] instanceof Peao)
+			if ( tabuleiroAuxiliar[xOrig][yOrig] instanceof Peao )
 			{
-				primMov = ((Peao)tabuleiroAuxiliar[xOrig][yOrig]).getPrimeiroMov();
+				if ( xDest == 0 || yDest == 7 )
+				{
+					Cor cor = tabuleiroAuxiliar[xOrig][yOrig].getCor();
+					tabuleiroAuxiliar[xOrig][yOrig] = null;
+					
+					tabuleiroAuxiliar[xDest][yDest] = new Rainha(cor);
+					if ( testaXeque(tabuleiroAuxiliar,xDest,yDest) )
+					{
+						return true;
+					}
+					
+					tabuleiroAuxiliar[xDest][yDest] = new Torre(cor);
+					if ( testaXeque(tabuleiroAuxiliar,xDest,yDest) )
+					{
+						return true;
+					}
+					
+					tabuleiroAuxiliar[xDest][yDest] = new Bispo(cor);
+					if ( testaXeque(tabuleiroAuxiliar,xDest,yDest) )
+					{
+						return true;
+					}
+					
+					tabuleiroAuxiliar[xDest][yDest] = new Torre(cor);
+					if ( testaXeque(tabuleiroAuxiliar,xDest,yDest) )
+					{
+						return true;
+					}
+					return false;
+				}
+				else
+				{
+					primMov = ((Peao)tabuleiroAuxiliar[xOrig][yOrig]).getPrimeiroMov();
+					tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+					((Peao)tabuleiroAuxiliar[xDest][yDest]).setPrimeiroMov(primMov);
+				}
 			}
-			
-			tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
-			
-			if ( tabuleiroAuxiliar[xDest][yDest] instanceof Peao )
+			else 
 			{
-				((Peao)tabuleiroAuxiliar[xDest][yDest]).setPrimeiroMov(primMov);
+				tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
 			}
+		
 		}
 		catch (MovIlegalExcecao e)
 		{
 			return false;
 		}
+		return testaXeque(tabuleiroAuxiliar,xDest,yDest);
+	}
+	
+	public boolean testaXeque ( Peca [][] tabuleiroAuxiliar, int xDest, int yDest )
+	{
 		for ( int i = 0; i < 8; i++ )
 		{
 			for ( int j = 0; j < 8; j++ )

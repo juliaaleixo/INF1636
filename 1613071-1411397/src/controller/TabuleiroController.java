@@ -287,19 +287,19 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 
 			if (s.equals("Cavalo")) 
 			{
-				jogo.tabuleiro[x][y] = new Cavalo(p.getCor());
+				jogo.tabuleiro[x][y] = new Cavalo(jogo.rodadaAtual);
 			} 
 			else if (s.equals("Torre")) 
 			{
-				jogo.tabuleiro[x][y] = new Torre(p.getCor());
+				jogo.tabuleiro[x][y] = new Torre(jogo.rodadaAtual);
 			} 
 			else if (s.equals("Bispo"))
 			{
-				jogo.tabuleiro[x][y] = new Bispo(p.getCor());
+				jogo.tabuleiro[x][y] = new Bispo(jogo.rodadaAtual);
 			} 
 			else 
 			{
-				jogo.tabuleiro[x][y] = new Rainha(p.getCor());
+				jogo.tabuleiro[x][y] = new Rainha(jogo.rodadaAtual);
 			}
 			
 			jogo.tabuleiro[x][y].addObserver(this);
