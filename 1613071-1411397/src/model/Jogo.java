@@ -1,8 +1,16 @@
 package model;
 
-public class Jogo 
+import java.io.Serializable;
+
+public class Jogo implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public Peca tabuleiro [][] = new Peca[8][8];
+	public boolean movimentado = false;
 	
 	public Peca getPeca (int x, int y)
 	{

@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -20,18 +21,22 @@ import model.Rei;
 import model.Torre;
 import view.Janela;
 
-public class TabuleiroController implements MouseListener, Observer
+public class TabuleiroController implements MouseListener, Observer, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	int xOrig, xDest, yOrig, yDest; 
 	boolean pecaSelecionada; //indica se a peca ja foi selecionada (para ver se é peca de origem ou destino)
 	Cor rodadaAtual = Cor.branco;
-	Jogo jogo;
+	public Jogo jogo;
 	Janela janela;
 	
 	public TabuleiroController()
 	{
 		jogo = new Jogo();
-		janela = new Janela(jogo);
+		janela = new Janela(jogo, this);
 		
 		for ( int i = 0; i < 8; i++ )
 		{
@@ -50,8 +55,31 @@ public class TabuleiroController implements MouseListener, Observer
 		janela.addMouseListener(this);
 	}
 	
+	public void resetTabuleiro () {
+		jogo = new Jogo();
+		rodadaAtual = Cor.branco;
+		pecaSelecionada = false;
+		
+		for ( int i = 0; i < 8; i++ )
+		{
+			for ( int j = 0; j < 8; j++ )
+			{
+				if ( jogo.tabuleiro[i][j] != null )
+				{
+					jogo.tabuleiro[i][j].addObserver(this);
+					jogo.tabuleiro[i][j].addObserver(this.janela.tabuleiro);
+				}
+			}
+		}
+		
+	}
+	
 	private void movimentaPeca()
 	{
+		janela.tabuleiro.jogo = jogo;
+		if(!jogo.movimentado) {
+			jogo.movimentado = true;
+		}
 		try 
 		{
 			jogo.tabuleiro[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, jogo.tabuleiro);
@@ -92,11 +120,14 @@ public class TabuleiroController implements MouseListener, Observer
 	// Pega uma coordenada da janela Y e a transforma numa posicao Y da matriz de pe�as
 	public int getTileY (int y) 
 	{
-		return 7 - ((y-26)/50);
+		return 7 - ((y-48)/50);
 	}
 	
 	public void mousePressed(MouseEvent e)
 	{
+		System.out.println("X: " + e.getX());
+		System.out.println("X: " + e.getY());
+		
 		if ( pecaSelecionada == false )
 		{
 			xOrig = getTileX(e.getX());

@@ -29,7 +29,7 @@ import model.Torre;
 
 public class Tabuleiro extends JPanel implements Observer 
 {
-	Jogo jogo;
+	public Jogo jogo;
 	Boolean posicoesPossiveis [][] = null;
 	
 	BufferedImage imagemPeaoBranco, imagemPeaoPreto;
