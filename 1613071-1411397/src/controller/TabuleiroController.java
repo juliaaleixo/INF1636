@@ -102,6 +102,7 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 					if (reisEmXeque[i][j] == true) 
 					{
 						Peca rei = jogo.tabuleiro[i][j];
+						
 						if ( ((Rei)rei).xequeMate(i,j,jogo.tabuleiro,rei.getCor()) == true )
 						{
 							JOptionPane.showMessageDialog(null, "Xeque Mate");
@@ -295,7 +296,8 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			else if (s.equals("Bispo"))
 			{
 				jogo.tabuleiro[x][y] = new Bispo(p.getCor());
-			} else 
+			} 
+			else 
 			{
 				jogo.tabuleiro[x][y] = new Rainha(p.getCor());
 			}
@@ -330,7 +332,7 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 
 			if (jogo.movimentado) {
 				int result = JOptionPane.showConfirmDialog(janela,
-						"Tem certeza que deseja come�ar um novo jogo?\nO progresso atual ser� perdido.",
+						"Tem certeza que deseja comecar um novo jogo?\nO progresso atual sera perdido.",
 						"Novo jogo", JOptionPane.YES_NO_OPTION);
 
 				if (result == 0) {

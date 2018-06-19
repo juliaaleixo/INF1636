@@ -187,8 +187,6 @@ public class Rei extends Peca
 	}
 	public boolean xequeMate (int xOrig, int yOrig, Peca[][] tabuleiro, Cor cor)
 	{
-		//incompleta: tem que verificar se a peca que esta atacando n pode ser capturada e nenhuma peca pode se colocar na frente
-		
 		//verifica se posicao atual do rei esta sobre ataque
 		if ( xeque(xOrig, yOrig, tabuleiro, cor) )
 		{
@@ -236,7 +234,7 @@ public class Rei extends Peca
 							boolean primMov = false; 
 							
 							//gravar se o movimento do peao foi o primeiro para depois restaura-lo
-							if ( tabuleiroAuxiliar[iOrig][jOrig] instanceof Peao)
+							if ( tabuleiroAuxiliar[iOrig][jOrig] instanceof Peao )
 							{
 								primMov = ((Peao)tabuleiroAuxiliar[iOrig][jOrig]).getPrimeiroMov();
 							}
