@@ -37,7 +37,7 @@ public class SalvamentoDao {
 		File dir = null;
 		
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","xd"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","xdz"));
 		
 		int result = fileChooser.showSaveDialog(frame);
 		
@@ -93,7 +93,7 @@ public class SalvamentoDao {
 		}
 		
 		if (!nomeArquivo.endsWith(".xdz")) {
-			JOptionPane.showMessageDialog(frame, "Não foi possível abrir o arquivo.", "Erro ao abrir arquivo de xadrez", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(frame, "Nï¿½o foi possï¿½vel abrir o arquivo.", "Erro ao abrir arquivo de xadrez", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
 		
