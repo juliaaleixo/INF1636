@@ -26,12 +26,8 @@ import view.Janela;
 
 public class TabuleiroController implements MouseListener, Observer, ActionListener 
 {
-	/**
-	 * 
-	 */
 	int xOrig, xDest, yOrig, yDest;
-	boolean pecaSelecionada; // indica se a peca ja foi selecionada (para ver se
-								// é peca de origem ou destino)
+	boolean pecaSelecionada; // indica se a peca ja foi selecionada (para ver se é peca de origem ou destino)
 	public Jogo jogo;
 	Janela janela;
 
@@ -105,7 +101,15 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 				{
 					if (reisEmXeque[i][j] == true) 
 					{
-						JOptionPane.showMessageDialog(null, "Xeque");
+						Peca rei = jogo.tabuleiro[i][j];
+						if ( ((Rei)rei).xequeMate(i,j,jogo.tabuleiro,rei.getCor()) == true )
+						{
+							JOptionPane.showMessageDialog(null, "Xeque Mate");
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "Xeque");
+						}
 					}
 				}
 			}
@@ -257,8 +261,10 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		return reisEmXeque;
 	}
 
-	public void update(Observable o, Object arg) {
-		if (((ArrayList<Object>) arg).get(0).equals("promocao")) {
+	public void update(Observable o, Object arg) 
+	{
+		if (((ArrayList<Object>) arg).get(0).equals("promocao")) 
+		{
 			int x = (int) ((ArrayList<Object>) arg).get(1);
 			int y = (int) ((ArrayList<Object>) arg).get(2);
 
@@ -293,9 +299,11 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			{
 				jogo.tabuleiro[x][y] = new Rainha(p.getCor());
 			}
+			
 			jogo.tabuleiro[x][y].addObserver(this);
 			jogo.tabuleiro[x][y].addObserver(this.janela.tabuleiro);
 			jogo.tabuleiro[x][y].movRealizado();
+			
 			return;
 		}
 		promocao(x, y);

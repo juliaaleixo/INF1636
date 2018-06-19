@@ -203,7 +203,65 @@ public class Rei extends Peca
 					}
 				}
 			}
+			if ( protegerRei(xOrig,yOrig,tabuleiro) )
+			{
+				return false;
+			}
 			return true;
+		}
+		return false;
+	}
+	public boolean protegerRei(int xRei, int yRei, Peca[][] tabuleiro)
+	{
+		Peca[][] tabuleiroAuxiliar = new Peca[8][8]; 
+		
+		for (int i = 0; i< 8; i++) 
+		{
+			for (int j = 0; j< 8; j++) 
+			{
+				tabuleiroAuxiliar[i][j] = tabuleiro[i][j];
+			}
+		}
+		
+		for ( int iOrig = 0; iOrig < 8; iOrig++ )
+		{
+			for ( int jOrig = 0; jOrig < 8; jOrig++ )
+			{
+				for ( int iDest = 0; iDest < 8; iDest++  )
+				{
+					for ( int jDest = 0; jDest < 8; jDest++ )
+					{
+						try
+						{
+							boolean primMov = false; 
+							
+							//gravar se o movimento do peao foi o primeiro para depois restaura-lo
+							if ( tabuleiroAuxiliar[iOrig][jOrig] instanceof Peao)
+							{
+								primMov = ((Peao)tabuleiroAuxiliar[iOrig][jOrig]).getPrimeiroMov();
+							}
+							
+							tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+							
+							if ( tabuleiroAuxiliar[iDest][jDest] instanceof Peao)
+							{
+								((Peao)tabuleiroAuxiliar[iDest][jDest]).setPrimeiroMov(primMov);
+							}
+						}
+						catch (MovIlegalExcecao e)
+						{
+							return false;
+						}
+						
+						//caso o rei que estava em xeque deixe de estar apos esse movimento, funcao retorna true
+						Peca rei = tabuleiroAuxiliar[xRei][yRei];
+						if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
+						{
+							return true;
+						}
+					}
+				}
+			}
 		}
 		return false;
 	}

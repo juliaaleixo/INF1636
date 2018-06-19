@@ -27,7 +27,8 @@ import model.Rainha;
 import model.Rei;
 import model.Torre;
 
-public class Tabuleiro extends JPanel implements Observer {
+public class Tabuleiro extends JPanel implements Observer 
+{
 	public Jogo jogo;
 	Boolean posicoesPossiveis[][] = null;
 
@@ -38,7 +39,7 @@ public class Tabuleiro extends JPanel implements Observer {
 	BufferedImage imagemReiBranco, imagemReiPreto;
 	BufferedImage imagemTorreBranca, imagemTorrePreta;
 
-	public Tabuleiro(Jogo jogo) 
+	public Tabuleiro (Jogo jogo) 
 	{
 		this.jogo = jogo;
 

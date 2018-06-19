@@ -88,7 +88,7 @@ public class Jogo implements Serializable
 			
 			tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
 			
-			if ( tabuleiroAuxiliar[xDest][yDest] instanceof Peao)
+			if ( tabuleiroAuxiliar[xDest][yDest] instanceof Peao )
 			{
 				((Peao)tabuleiroAuxiliar[xDest][yDest]).setPrimeiroMov(primMov);
 			}
@@ -110,7 +110,7 @@ public class Jogo implements Serializable
 					{
 						if ( ((Rei) p).xeque(i, j, tabuleiroAuxiliar, p.getCor()) )
 						{
-							if( corP == tabuleiroAuxiliar[xDest][yDest].getCor() )
+							if ( corP == tabuleiroAuxiliar[xDest][yDest].getCor() )
 							{
 								return true;
 							}
