@@ -1,6 +1,5 @@
 package controller;
 
-import view.Janela;
 
 public class Main 
 {

@@ -11,6 +11,7 @@ public class Jogo implements Serializable
 	
 	public Peca tabuleiro [][] = new Peca[8][8];
 	public boolean movimentado = false;
+	public Cor rodadaAtual = Cor.branco;
 	
 	public Peca getPeca (int x, int y)
 	{

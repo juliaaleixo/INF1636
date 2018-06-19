@@ -48,6 +48,10 @@ public class SalvamentoDao {
 		}
 		
 		if (!nomeArquivo.endsWith(".xdz")) {
+			if(nomeArquivo.contains(".")) {
+				JOptionPane.showMessageDialog(frame, "Caracter inválido", "Não foi possível salvar", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			nomeArquivo = nomeArquivo + ".xdz";
 		}
 		File outputFile = new File(dir, nomeArquivo);
@@ -108,7 +112,7 @@ public class SalvamentoDao {
         	stream.close();
 
         } catch (Exception exc) {
-          
+        	JOptionPane.showMessageDialog(frame, "Não foi possível abrir o arquivo.", "Erro ao abrir arquivo de xadrez", JOptionPane.ERROR_MESSAGE);
         	System.out.println("Erro ao abrir arquivo " + dir.toString());
         	exc.printStackTrace();
         }
