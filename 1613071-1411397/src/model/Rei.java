@@ -244,6 +244,11 @@ public class Rei extends Peca
 							if ( tabuleiroAuxiliar[iDest][jDest] instanceof Peao)
 							{
 								((Peao)tabuleiroAuxiliar[iDest][jDest]).setPrimeiroMov(primMov);
+								
+								if ( jDest == 7 || jDest == 0 )
+								{
+									tabuleiroAuxiliar[iDest][jDest].movimento(iDest, jDest, iOrig, jOrig, tabuleiroAuxiliar);
+								}
 							}
 						}
 						catch (MovIlegalExcecao e)
