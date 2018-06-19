@@ -11,8 +11,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import controller.TabuleiroController;
-
 
 // singleton
 public class SalvamentoDao {
@@ -37,7 +35,7 @@ public class SalvamentoDao {
 		File dir = null;
 		
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","xd"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","xdz"));
 		
 		int result = fileChooser.showSaveDialog(frame);
 		
