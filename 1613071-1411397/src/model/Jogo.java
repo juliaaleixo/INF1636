@@ -80,7 +80,7 @@ public class Jogo implements Serializable
 			//gravar se o movimento do peao foi o primeiro para depois restaura-lo
 			if ( tabuleiroAuxiliar[xOrig][yOrig] instanceof Peao )
 			{
-				if ( xDest == 0 || xDest == 7 )
+				if ( yDest == 0 || yDest == 7 )
 				{
 					Cor cor = tabuleiroAuxiliar[xOrig][yOrig].getCor();
 					tabuleiroAuxiliar[xOrig][yOrig] = null;
@@ -139,11 +139,11 @@ public class Jogo implements Serializable
 				if ( tabuleiroAuxiliar[i][j] != null )
 				{
 					Peca p = tabuleiroAuxiliar[i][j];
-					Cor corP = tabuleiroAuxiliar[i][j].getCor();
+					Cor corP = p.getCor();
 			  
 					if ( p instanceof Rei ) 
 					{
-						if ( ((Rei) p).xeque(i, j, tabuleiroAuxiliar, p.getCor()) )
+						if ( ((Rei) p).xeque(i, j, tabuleiroAuxiliar, corP) )
 						{
 							if ( corP == tabuleiroAuxiliar[xDest][yDest].getCor() )
 							{

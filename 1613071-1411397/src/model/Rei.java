@@ -222,7 +222,6 @@ public class Rei extends Peca
 				{
 					for ( int jDest = 0; jDest < 8; jDest++ )
 					{
-						System.out.println("peca " + iOrig +","+ jOrig + " -> "+iDest+","+jDest);
 						if (tabuleiroAuxiliar[iOrig][jOrig] == null) 
 						{
 							continue;
@@ -232,10 +231,8 @@ public class Rei extends Peca
 						//gravar se o movimento do peao foi o primeiro para depois restaura-lo
 						if ( tabuleiroAuxiliar[iOrig][jOrig] instanceof Peao )
 						{
-							System.out.println("é peao");
 							if ( jDest == 7 || jDest == 0 )
 							{
-								System.out.println("========= destino de treansformar");
 								Peca rei = tabuleiroAuxiliar[xRei][yRei];
 								Cor cor = tabuleiroAuxiliar[iOrig][jOrig].getCor();
 								tabuleiroAuxiliar[iOrig][jOrig] = null;
@@ -267,7 +264,6 @@ public class Rei extends Peca
 							}
 							else
 							{
-								System.out.println("========= Outro destino");
 								primMov = ((Peao)tabuleiroAuxiliar[iOrig][jOrig]).getPrimeiroMov();
 								try 
 								{
@@ -278,12 +274,10 @@ public class Rei extends Peca
 									continue;
 								}
 								((Peao)tabuleiroAuxiliar[iDest][jDest]).setPrimeiroMov(primMov);
-								System.out.println("testa peao " + iOrig +","+ jOrig + " vai pra casa "+iDest+","+jDest);
 							}
 						}
 						else
 						{
-							System.out.println("testa Qqr outra peca " + iOrig +","+ jOrig + " vai pra casa "+iDest+","+jDest);
 							try 
 							{
 								tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
@@ -292,7 +286,6 @@ public class Rei extends Peca
 							{
 								continue;
 							}
-							System.out.println("deu ruim");
 						}
 					}
 					//caso o rei que estava em xeque deixe de estar apos esse movimento, funcao retorna true
