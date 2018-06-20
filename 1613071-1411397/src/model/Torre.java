@@ -2,6 +2,10 @@ package model;
 
 public class Torre extends Peca
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Boolean movimentou = false;
 	
 	public Torre (Cor cor)

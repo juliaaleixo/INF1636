@@ -2,6 +2,10 @@ package model;
 
 public class Rei extends Peca
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Boolean movimentou = false;
 	
 	public Rei (Cor cor)

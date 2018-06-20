@@ -1,9 +1,11 @@
 package model;
 
-import java.util.ArrayList;
-
 public class Bispo extends Peca
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Bispo (Cor cor)
 	{
 		super (cor);
@@ -29,7 +31,6 @@ public class Bispo extends Peca
 	}
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
-		Peca p = tabuleiro[xOrig][yOrig];
 		
 		// andar nas diagonais
 		if ( Math.abs(xDest - xOrig) == Math.abs(yDest - yOrig) )

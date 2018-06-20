@@ -5,6 +5,10 @@ package model;
 public class Rainha extends Peca
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Rainha (Cor cor)
 	{
 		super(cor);

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Peao extends Peca
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	boolean primeiroMov = true;
 	
 	public Peao (Cor cor)
