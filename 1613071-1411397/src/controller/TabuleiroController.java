@@ -99,17 +99,17 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			{
 				for (int j = 0; j < 8; j++) 
 				{
-					if (reisEmXeque[i][j] == true) 
+					if ( reisEmXeque[i][j] == true ) 
 					{
 						Peca rei = jogo.tabuleiro[i][j];
 						
 						if ( ((Rei)rei).xequeMate(i,j,jogo.tabuleiro,rei.getCor()) == true )
 						{
-							JOptionPane.showMessageDialog(null, "Xeque Mate");
+							Facade.getInstance().alertaXequeMate();
 						}
 						else
 						{
-							JOptionPane.showMessageDialog(null, "Xeque");
+							Facade.getInstance().alertaXeque();
 						}
 					}
 				}
@@ -222,7 +222,7 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			for (int j = 0; j < 8; j++) 
 			{
 
-				if (p.caminhoLivre(xOrig, yOrig, i, j, tabuleiro)) 
+				if (p.caminhoLivre(xOrig, yOrig, i, j, tabuleiro) && !jogo.reiDesprotegido(xOrig, yOrig, i, j)) 
 				{
 					posicoesPossiveis[i][j] = true;
 				} 
@@ -269,48 +269,10 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			int x = (int) ((ArrayList<Object>) arg).get(1);
 			int y = (int) ((ArrayList<Object>) arg).get(2);
 
-			promocao(x, y);
+			Facade.getInstance().promocao(x, y,jogo);
 		}
 	}
-
-	public void promocao(int x, int y) 
-	{
-		Object[] possibilities = { "Rainha", "Torre", "Bispo", "Cavalo" };
-		
-		String s = (String) JOptionPane.showInputDialog(null,
-				"Escolha a nova peca:\n", "Promocao do Peao",
-				JOptionPane.PLAIN_MESSAGE, null, possibilities, "Rainha");
-
-		if ((s != null) && (s.length() > 0)) 
-		{
-			Peca p = jogo.tabuleiro[x][y];
-
-			if (s.equals("Cavalo")) 
-			{
-				jogo.tabuleiro[x][y] = new Cavalo(jogo.rodadaAtual);
-			} 
-			else if (s.equals("Torre")) 
-			{
-				jogo.tabuleiro[x][y] = new Torre(jogo.rodadaAtual);
-			} 
-			else if (s.equals("Bispo"))
-			{
-				jogo.tabuleiro[x][y] = new Bispo(jogo.rodadaAtual);
-			} 
-			else 
-			{
-				jogo.tabuleiro[x][y] = new Rainha(jogo.rodadaAtual);
-			}
-			
-			jogo.tabuleiro[x][y].addObserver(this);
-			jogo.tabuleiro[x][y].addObserver(this.janela.tabuleiro);
-			jogo.tabuleiro[x][y].movRealizado();
-			
-			return;
-		}
-		promocao(x, y);
-	}
-
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		SalvamentoDao salvamento = SalvamentoDao.getInstance();

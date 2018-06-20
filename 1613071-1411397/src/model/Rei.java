@@ -119,7 +119,6 @@ public class Rei extends Peca
  					if ( (yDest == j + m1) && ((xDest == i + 1) || (xDest == i - 1)) )
  					{
  						return true;
- 						
  					}
  				}
  				else
@@ -190,17 +189,7 @@ public class Rei extends Peca
 		//verifica se posicao atual do rei esta sobre ataque
 		if ( xeque(xOrig, yOrig, tabuleiro, cor) )
 		{
-			for ( int i = 0; i < 8; i++ )
-			{
-				for ( int j = 0; j < 8; j++ )
-				{
-					//verifica se o rei pode se movimentar
-					if ( caminhoLivre(xOrig, yOrig, i, j, tabuleiro) == true )
-					{
-						return false;
-					}
-				}
-			}
+			//se rei pode ser protegido, nao esta em xeque mate
 			if ( protegerRei(xOrig,yOrig,tabuleiro) )
 			{
 				return false;
@@ -229,63 +218,84 @@ public class Rei extends Peca
 				{
 					for ( int jDest = 0; jDest < 8; jDest++ )
 					{
-						try
+						System.out.println("peca " + iOrig +","+ jOrig + " -> "+iDest+","+jDest);
+						if (tabuleiroAuxiliar[iOrig][jOrig] == null) 
 						{
-							boolean primMov = false; 
-							
-							//gravar se o movimento do peao foi o primeiro para depois restaura-lo
-							if ( tabuleiroAuxiliar[iOrig][jOrig] instanceof Peao )
+							continue;
+						}
+						boolean primMov = false; 
+						
+						//gravar se o movimento do peao foi o primeiro para depois restaura-lo
+						if ( tabuleiroAuxiliar[iOrig][jOrig] instanceof Peao )
+						{
+							System.out.println("é peao");
+							if ( jDest == 7 || jDest == 0 )
 							{
-								if ( jDest == 7 || jDest == 0 )
+								System.out.println("========= destino de treansformar");
+								Peca rei = tabuleiroAuxiliar[xRei][yRei];
+								Cor cor = tabuleiroAuxiliar[iOrig][jOrig].getCor();
+								tabuleiroAuxiliar[iOrig][jOrig] = null;
+								
+								tabuleiroAuxiliar[iDest][jDest] = new Rainha(cor);
+								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
-									Peca rei = tabuleiroAuxiliar[xRei][yRei];
-									Cor cor = tabuleiroAuxiliar[iOrig][jOrig].getCor();
-									tabuleiroAuxiliar[iOrig][jOrig] = null;
-									
-									tabuleiroAuxiliar[iDest][jDest] = new Rainha(cor);
-									if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
-									{
-										return true;
-									}
-									
-									tabuleiroAuxiliar[iDest][jDest] = new Torre(cor);
-									if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
-									{
-										return true;
-									}
-									
-									tabuleiroAuxiliar[iDest][jDest] = new Bispo(cor);
-									if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
-									{
-										return true;
-									}
-									
-									tabuleiroAuxiliar[iDest][jDest] = new Torre(cor);
-									if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
-									{
-										return true;
-									}
-									return false;
+									return true;
 								}
-								else
+								
+								tabuleiroAuxiliar[iDest][jDest] = new Cavalo(cor);
+								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
-									primMov = ((Peao)tabuleiroAuxiliar[iOrig][jOrig]).getPrimeiroMov();
+									return true;
+								}
+								
+								tabuleiroAuxiliar[iDest][jDest] = new Bispo(cor);
+								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
+								{
+									return true;
+								}
+								
+								tabuleiroAuxiliar[iDest][jDest] = new Torre(cor);
+								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
+								{
+									return true;
+								}
+								continue;
+							}
+							else
+							{
+								System.out.println("========= Outro destino");
+								primMov = ((Peao)tabuleiroAuxiliar[iOrig][jOrig]).getPrimeiroMov();
+								try 
+								{
 									tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
-									((Peao)tabuleiroAuxiliar[iDest][jDest]).setPrimeiroMov(primMov);
 								}
+								catch (MovIlegalExcecao e)
+								{
+									continue;
+								}
+								((Peao)tabuleiroAuxiliar[iDest][jDest]).setPrimeiroMov(primMov);
+								System.out.println("testa peao " + iOrig +","+ jOrig + " vai pra casa "+iDest+","+jDest);
 							}
 						}
-						catch (MovIlegalExcecao e)
+						else
 						{
-							return false;
+							System.out.println("testa Qqr outra peca " + iOrig +","+ jOrig + " vai pra casa "+iDest+","+jDest);
+							try 
+							{
+								tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+							}
+							catch (MovIlegalExcecao e)
+							{
+								continue;
+							}
+							System.out.println("deu ruim");
 						}
-						
-						//caso o rei que estava em xeque deixe de estar apos esse movimento, funcao retorna true
-						Peca rei = tabuleiroAuxiliar[xRei][yRei];
-						if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiro,rei.getCor()) )
-						{
-							return true;
-						}
+					}
+					//caso o rei que estava em xeque deixe de estar apos esse movimento, funcao retorna true
+					Peca rei = tabuleiroAuxiliar[xRei][yRei];
+					if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
+					{
+						return true;
 					}
 				}
 			}

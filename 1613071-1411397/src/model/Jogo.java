@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Jogo implements Serializable
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	public Peca tabuleiro [][] = new Peca[8][8];
@@ -83,7 +80,7 @@ public class Jogo implements Serializable
 			//gravar se o movimento do peao foi o primeiro para depois restaura-lo
 			if ( tabuleiroAuxiliar[xOrig][yOrig] instanceof Peao )
 			{
-				if ( xDest == 0 || yDest == 7 )
+				if ( xDest == 0 || xDest == 7 )
 				{
 					Cor cor = tabuleiroAuxiliar[xOrig][yOrig].getCor();
 					tabuleiroAuxiliar[xOrig][yOrig] = null;

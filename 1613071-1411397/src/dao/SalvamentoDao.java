@@ -18,7 +18,6 @@ public class SalvamentoDao {
 	private static SalvamentoDao instance = null;
 	
 	private SalvamentoDao () {
-		
 	}
 	
 	public static SalvamentoDao getInstance() {
