@@ -42,8 +42,7 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			{
 				if (jogo.tabuleiro[i][j] != null)
 				{
-					jogo.tabuleiro[i][j].addObserver(this);
-					jogo.tabuleiro[i][j].addObserver(this.janela.tabuleiro);
+					Facade.getInstance().configuraObserver(i, j, jogo, this);
 				}
 			}
 		}
@@ -65,8 +64,7 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (jogo.tabuleiro[i][j] != null) {
-					jogo.tabuleiro[i][j].addObserver(this);
-					jogo.tabuleiro[i][j].addObserver(this.janela.tabuleiro);
+					Facade.getInstance().configuraObserver(i, j, jogo, this);
 				}
 			}
 		}

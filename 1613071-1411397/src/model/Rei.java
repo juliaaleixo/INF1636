@@ -193,6 +193,18 @@ public class Rei extends Peca
 		//verifica se posicao atual do rei esta sobre ataque
 		if ( xeque(xOrig, yOrig, tabuleiro, cor) )
 		{
+			for ( int i = 0; i < 8; i++ )
+			{
+				for ( int j = 0; j < 8; j++ )
+				{
+					//verifica se o rei pode se movimentar
+					if ( caminhoLivre(xOrig, yOrig, i, j, tabuleiro) == true )
+					{
+						return false;
+					}
+				}
+			}
+			
 			//se rei pode ser protegido, nao esta em xeque mate
 			if ( protegerRei(xOrig,yOrig,tabuleiro) )
 			{
@@ -206,13 +218,7 @@ public class Rei extends Peca
 	{
 		Peca[][] tabuleiroAuxiliar = new Peca[8][8]; 
 		
-		for (int i = 0; i< 8; i++) 
-		{
-			for (int j = 0; j< 8; j++) 
-			{
-				tabuleiroAuxiliar[i][j] = tabuleiro[i][j];
-			}
-		}
+		
 		
 		for ( int iOrig = 0; iOrig < 8; iOrig++ )
 		{
@@ -222,6 +228,15 @@ public class Rei extends Peca
 				{
 					for ( int jDest = 0; jDest < 8; jDest++ )
 					{
+						
+						for (int i = 0; i< 8; i++) 
+						{
+							for (int j = 0; j< 8; j++) 
+							{
+								tabuleiroAuxiliar[i][j] = tabuleiro[i][j];
+							}
+						}
+						
 						if (tabuleiroAuxiliar[iOrig][jOrig] == null) 
 						{
 							continue;
@@ -235,29 +250,36 @@ public class Rei extends Peca
 							{
 								Peca rei = tabuleiroAuxiliar[xRei][yRei];
 								Cor cor = tabuleiroAuxiliar[iOrig][jOrig].getCor();
-								tabuleiroAuxiliar[iOrig][jOrig] = null;
 								
+								if(!tabuleiro[iOrig][jOrig].caminhoLivre(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar)) {
+									continue;
+								}
+								tabuleiroAuxiliar[iOrig][jOrig] = null;
 								tabuleiroAuxiliar[iDest][jDest] = new Rainha(cor);
 								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
+									System.out.println("nao ta em cheque 3");
 									return true;
 								}
 								
 								tabuleiroAuxiliar[iDest][jDest] = new Cavalo(cor);
 								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
+									System.out.println("nao ta em cheque 4");
 									return true;
 								}
 								
 								tabuleiroAuxiliar[iDest][jDest] = new Bispo(cor);
 								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
+									System.out.println("nao ta em cheque 5");
 									return true;
 								}
 								
 								tabuleiroAuxiliar[iDest][jDest] = new Torre(cor);
 								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
+									System.out.println("nao ta em cheque 6");
 									return true;
 								}
 								continue;
@@ -278,9 +300,22 @@ public class Rei extends Peca
 						}
 						else
 						{
+							Peca rei = tabuleiroAuxiliar[xRei][yRei];
 							try 
 							{
 								tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+								if (tabuleiroAuxiliar[iDest][jDest] == rei) 
+								{ 
+									// Se foi o rei que se moveu
+									if ( ! ((Rei)rei).xeque(iDest,jDest,tabuleiroAuxiliar,rei.getCor()) )
+									{
+										return true;
+									}
+									else 
+									{
+										continue;
+									}
+								}
 							}
 							catch (MovIlegalExcecao e)
 							{
@@ -290,8 +325,12 @@ public class Rei extends Peca
 					}
 					//caso o rei que estava em xeque deixe de estar apos esse movimento, funcao retorna true
 					Peca rei = tabuleiroAuxiliar[xRei][yRei];
-					if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
+					if(!(rei instanceof Rei)) {
+						continue;
+					}
+					if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )//TODO: acha que eh uma rainha
 					{
+						System.out.println("nao ta em cheque 2");
 						return true;
 					}
 				}
