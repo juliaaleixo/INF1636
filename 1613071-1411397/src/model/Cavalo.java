@@ -1,10 +1,13 @@
 package model;
 
-import java.util.ArrayList;
 
 public class Cavalo extends Peca
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public Cavalo (Cor cor)
 	{
 		super (cor);
