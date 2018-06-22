@@ -24,7 +24,7 @@ public class Cavalo extends Peca
 		{
 			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
 			
-			movRealizado();
+			movimentoRealizado();
 		}
 		else
 		{

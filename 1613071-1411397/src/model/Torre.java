@@ -30,7 +30,7 @@ public class Torre extends Peca
 			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
 			movimentou = true;
 			
-			movRealizado();
+			movimentoRealizado();
 		}
 		else
 		{

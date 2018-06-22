@@ -32,7 +32,7 @@ public class Peao extends Peca
 					realizaMov (xOrig,yOrig,xDest,yDest,tabuleiro);
 					this.primeiroMov = false;
 					
-					movRealizado();
+					movimentoRealizado();
 				} 
 				else 
 				{
@@ -45,7 +45,7 @@ public class Peao extends Peca
 			if ( caminhoLivre(xOrig,yOrig,xDest,yDest,tabuleiro) ) 
 			{
 				realizaMov(xOrig,yOrig,xDest,yDest,tabuleiro);
-				movRealizado();
+				movimentoRealizado();
 				
 				//verificar se peao pode ser promovido
 				if ( this.getCor() == Cor.branco )

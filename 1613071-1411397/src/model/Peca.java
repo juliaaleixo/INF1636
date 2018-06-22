@@ -65,7 +65,7 @@ public abstract class Peca extends Observable implements Serializable
 	/**
 	 * Apos um movimento ser realizado, notifica observadores para tabuleiro ser repintado.
 	 */
-	public void movRealizado()
+	public void movimentoRealizado()
 	{
 		ArrayList<Object> obj = new ArrayList<Object>();
 		obj.add("repaint");

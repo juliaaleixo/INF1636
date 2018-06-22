@@ -1,8 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Observable;
 
-public class Jogo implements Serializable
+public class Jogo extends Observable implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -173,5 +175,14 @@ public class Jogo implements Serializable
 			}
 		}
 		return false;
+	}
+	public void tabuleiroAtualizado()
+	{
+		System.out.println("oi");
+		ArrayList<Object> obj = new ArrayList<Object>();
+		obj.add("repaint");
+	
+		this.setChanged();
+		this.notifyObservers(obj);
 	}
 }

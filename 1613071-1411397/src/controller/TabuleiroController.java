@@ -39,13 +39,15 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		jogo = new Jogo();
 		janela = new Janela(jogo);
 
+		Facade.getInstance().configuraObserverJogo(jogo,this);
+		
 		for (int i = 0; i < 8; i++) 
 		{
 			for (int j = 0; j < 8; j++) 
 			{
 				if (jogo.tabuleiro[i][j] != null)
 				{
-					Facade.getInstance().configuraObserver(i, j, jogo, this);
+					Facade.getInstance().configuraObserverPeca(i, j, jogo, this);
 				}
 			}
 		}
@@ -66,11 +68,12 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		jogo = new Jogo();
 		jogo.rodadaAtual = Cor.branco;
 		pecaSelecionada = false;
+		Facade.getInstance().configuraObserverJogo(jogo,this);
 
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (jogo.tabuleiro[i][j] != null) {
-					Facade.getInstance().configuraObserver(i, j, jogo, this);
+					Facade.getInstance().configuraObserverPeca(i, j, jogo, this);
 				}
 			}
 		}
@@ -318,10 +321,21 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			Jogo jogo = (Jogo) salvamento.carregarJogo(janela);
 
 			if (jogo != null) {
-
 				this.jogo = jogo;
 				janela.tabuleiro.jogo = this.jogo;
-				janela.tabuleiro.repaint();
+				Facade.getInstance().configuraObserverJogo(jogo, this);
+				//reconfigura observers das pecas 
+				for (int i = 0; i < 8; i++) 
+				{
+					for (int j = 0; j < 8; j++) 
+					{
+						if (jogo.tabuleiro[i][j] != null) 
+						{
+							Facade.getInstance().configuraObserverPeca(i, j, jogo, this);
+						}
+					}
+				}
+				jogo.tabuleiroAtualizado();
 			}
 		} else if (e.getSource() == janela.novoJogo) {
 
@@ -331,13 +345,17 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 						"Novo jogo", JOptionPane.YES_NO_OPTION);
 
 				if (result == 0) {
-					resetTabuleiro();
-					this.jogo = new Jogo();
-					janela.tabuleiro.jogo = this.jogo;
-					janela.tabuleiro.repaint();
+					novoJogo();
 				}
 			}
 
 		}
+	}
+	public void novoJogo()
+	{
+		this.jogo = new Jogo();
+		resetTabuleiro();
+		janela.tabuleiro.jogo = this.jogo;
+		jogo.tabuleiroAtualizado();
 	}
 }

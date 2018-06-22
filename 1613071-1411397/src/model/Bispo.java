@@ -22,7 +22,7 @@ public class Bispo extends Peca
 		{
 			realizaMov(xOrig, yOrig, xDest, yDest, tabuleiro);
 			
-			movRealizado();
+			movimentoRealizado();
 		}
 		else
 		{

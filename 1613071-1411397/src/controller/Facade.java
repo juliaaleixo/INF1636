@@ -1,5 +1,6 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.Observer;
 
 import javax.swing.JOptionPane;
@@ -35,7 +36,7 @@ public class Facade
 	}
 	
 	/**
-	 * 
+	 * Faz a promocao do peao
 	 * @param x: coordenada x do peao a ser promovido no tabuleiro
 	 * @param y: coordenada y do peao a ser promovido do tabuleiro
 	 * @param jogo: instancia do jogo
@@ -69,8 +70,8 @@ public class Facade
 				jogo.tabuleiro[x][y] = new Rainha(jogo.rodadaAtual);
 			}
 			
-			configuraObserver(x, y, jogo, c);
-			jogo.tabuleiro[x][y].movRealizado();
+			configuraObserverPeca(x, y, jogo, c);
+			jogo.tabuleiro[x][y].movimentoRealizado();
 			
 			return;
 		}
@@ -82,24 +83,42 @@ public class Facade
 	}
 	public void alertaXequeMate()
 	{
-		JOptionPane.showMessageDialog(null, "Xeque mate");
-//		int input = JOptionPane.showConfirmDialog(null, "Xeque Mate", "Game over", JOptionPane.DEFAULT_OPTION);
-//        if (input == 0) {
-//        		c.janela.dispose();
-//        		c.janela.setVisible(false);
-//        }
+		int input = JOptionPane.showConfirmDialog(null, "Deseja comecar novo jogo?", "Xeque Mate", JOptionPane.YES_NO_OPTION);
 		
+		// opcao: nao iniciar novo jogo
+		if (input == 1) 
+		{
+      		c.janela.dispose();
+       		c.janela.setVisible(false);
+		}
+		//iniciar novo jogo	
+		else
+		{
+			c.novoJogo();
+		}
 	}
+	
 	/**
-	 * 
+	 * Configura observer para cada peca
 	 * @param x: coordenada x da peca
 	 * @param y: coordenada y da peca
 	 * @param jogo: instancia do jogo 
 	 * @param controlador: controlador que observa a peca na posicao (x,y) do tabuleiro
 	 */
-	public void configuraObserver(int x, int y, Jogo jogo, TabuleiroController controlador)
+	public void configuraObserverPeca(int x, int y, Jogo jogo, TabuleiroController controlador)
 	{
 		jogo.tabuleiro[x][y].addObserver(controlador);
 		jogo.tabuleiro[x][y].addObserver(controlador.janela.tabuleiro);
 	}
+	
+	/**
+	 * Configura um observador no jogo
+	 * @param jogo: instancia do jogo
+	 * @param controlador: instancia do controlador
+	 */
+	public void configuraObserverJogo(Jogo jogo, TabuleiroController controlador)
+	{
+		jogo.addObserver(controlador.janela.tabuleiro);
+	}
+	
 }
