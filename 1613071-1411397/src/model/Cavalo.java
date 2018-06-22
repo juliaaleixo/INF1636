@@ -3,15 +3,16 @@ package model;
 
 public class Cavalo extends Peca
 {
-
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public Cavalo (Cor cor)
 	{
 		super (cor);
 	}
+	
+	/**
+	 * Chama funcao de movimento do cavalo, caso seja possivel.
+	 * Caso contrario, levanta uma excecao do tipo MovIlegalExcecao
+	 */
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if( xOrig == xDest && yOrig == yDest )
@@ -31,6 +32,10 @@ public class Cavalo extends Peca
 			throw new MovIlegalExcecao(str);
 		}	
 	}
+	/**
+	 * Verifica se existe um caminho livre entre as coordenadas de origem e destino, levando em consideracao
+	 * as regras dos movimentos do cavalo. 
+	 */
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
 		// se anda 2 em X anda 1 em Y e vice versa.

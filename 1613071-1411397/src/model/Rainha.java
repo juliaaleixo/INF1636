@@ -4,16 +4,16 @@ package model;
 
 public class Rainha extends Peca
 {
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public Rainha (Cor cor)
 	{
 		super(cor);
 	}
 	
+	/**
+	 * Chama funcao de movimento da rainha, caso seja possivel.
+	 * Caso contrario, levanta uma excecao do tipo MovIlegalExcecao
+	 */
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if( xOrig == xDest && yOrig == yDest )
@@ -34,6 +34,10 @@ public class Rainha extends Peca
 		}
 		
 	}
+	/**
+	 * Verifica se existe um caminho livre entre as coordenadas de origem e destino, levando em consideracao
+	 * as regras dos movimentos da rainha
+	 */
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
 		// andar vertical

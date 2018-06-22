@@ -15,6 +15,9 @@ public class Jogo implements Serializable
 		return tabuleiro[x][y];
 	}
 	
+	/**
+	 * Inicia um jogo, inserindo as pecas de cada cor em seus devidos lugares no tabuleiro.
+	 */
 	public Jogo()
 	{
 		for (int i = 0; i < 8; i++)
@@ -60,6 +63,14 @@ public class Jogo implements Serializable
 		
 	}
 	
+	/**
+	 * Verifica se, apos um movimento, rei vai ficar em xeque.
+	 * @param xOrig: coordenada x da origem
+	 * @param yOrig: coordenada y da origem
+	 * @param xDest: coordenada x do destino
+	 * @param yDest: coordenada y do destino
+	 * @return
+	 */
 	public boolean reiDesprotegido( int xOrig, int yOrig, int xDest, int yDest )
 	{
 		// criar um tabuleiro para verificar se, com o movimento feito, rei vai ficar em xeque
@@ -130,6 +141,13 @@ public class Jogo implements Serializable
 		return testaXeque(tabuleiroAuxiliar,xDest,yDest);
 	}
 	
+	/**
+	 * 
+	 * @param tabuleiroAuxiliar
+	 * @param xDest
+	 * @param yDest
+	 * @return
+	 */
 	public boolean testaXeque ( Peca [][] tabuleiroAuxiliar, int xDest, int yDest )
 	{
 		for ( int i = 0; i < 8; i++ )

@@ -12,6 +12,10 @@ public class Janela extends JFrame
 	public Tabuleiro tabuleiro;
 	public JMenuItem novoJogo, salvar, carregar;
 	
+	/**
+	 * Inicializa a janela do jogo
+	 * @param jogo: instancia do jogo
+	 */
 	public Janela(Jogo jogo)
 	{
 		tabuleiro = new Tabuleiro(jogo);
@@ -43,6 +47,11 @@ public class Janela extends JFrame
 
 	}
 	
+	/**
+	 * 
+	 * @param menu
+	 * @param menuItems
+	 */
 	public void adicionaMenus (JMenu menu, JMenuItem[] menuItems) {
 		
 		for(JMenuItem item : menuItems) {

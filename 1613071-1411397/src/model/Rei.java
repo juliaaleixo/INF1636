@@ -2,9 +2,6 @@ package model;
 
 public class Rei extends Peca
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	Boolean movimentou = false;
 	
@@ -17,7 +14,10 @@ public class Rei extends Peca
 	{
 		return movimentou;
 	}
-	
+	/**
+	 * Chama funcao de movimento do rei, caso seja possivel.
+	 * Caso contrario, levanta uma excecao do tipo MovIlegalExcecao
+	 */
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if ( xOrig == xDest && yOrig == yDest )
@@ -50,6 +50,10 @@ public class Rei extends Peca
 			throw new MovIlegalExcecao(str);
 		}
 	}
+	/**
+	 * Verifica se existe um caminho livre entre as coordenadas de origem e destino, levando em consideracao
+	 * as regras dos movimentos do rei.
+	 */
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
 		// verifica roque
@@ -90,6 +94,14 @@ public class Rei extends Peca
 		}
 		return false;
 	}
+	/**
+	 * Verifica se rei no seu destino desejado ficaria sobre ataque. 
+	 * @param xDest: coordenada x de destino
+	 * @param yDest: coordenada y de destino
+	 * @param tabuleiro: tabuleiro atual
+	 * @param cor: cor do rei
+	 * @return
+	 */
 	public boolean reiSobreAtaque(int xDest, int yDest, Peca[][] tabuleiro, Cor cor)
   	{
  		for ( int i = 0; i < 8; i++ )
@@ -136,7 +148,15 @@ public class Rei extends Peca
  		}
   		return false;
   	}
-	
+	/**
+	 * Verifica condicoes para roque. Caso seja permitido, retorna true
+	 * @param xOrig: coordenada x de origem
+	 * @param yOrig: coordenada y de origem
+	 * @param xDest: coordenada x de destino
+	 * @param yDest: coordenada y de destino
+	 * @param tabuleiro: tabuleiro atual
+	 * @return
+	 */
 	public Boolean roquePermitido (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{	
 		//verificar se roque curto 
@@ -179,6 +199,14 @@ public class Rei extends Peca
 		}
 		return false;
 	}
+	/**
+	 * Verifica se rei esta em xeque.
+	 * @param xOrig: coordenada x de origem do rei
+	 * @param yOrig: coordenada y de origem do rei
+	 * @param tabuleiro: tabuleiro atual
+	 * @param cor: cor do rei
+	 * @return
+	 */
 	public boolean xeque (int xOrig, int yOrig, Peca[][] tabuleiro, Cor cor)
 	{
 		//verifica se posicao atual do rei esta sobre ataque
@@ -188,6 +216,14 @@ public class Rei extends Peca
 		}
 		return false;
 	}
+	/**
+	 * Verifica se o rei esta em xeque mate.
+	 * @param xOrig: coordenada x de origem do rei
+	 * @param yOrig: coordenada y de origem do rei
+	 * @param tabuleiro: tabuleiro atual
+	 * @param cor: cor do rei
+	 * @return
+	 */
 	public boolean xequeMate (int xOrig, int yOrig, Peca[][] tabuleiro, Cor cor)
 	{
 		//verifica se posicao atual do rei esta sobre ataque
@@ -214,6 +250,13 @@ public class Rei extends Peca
 		}
 		return false;
 	}
+	/**
+	 * Verifica se existe algum movimento de alguma peca que possa proteger o rei (tira-lo do xeque).
+	 * @param xRei: coordenada x do rei
+	 * @param yRei: coordenada y do rei
+	 * @param tabuleiro: tabuleiro atual
+	 * @return
+	 */
 	public boolean protegerRei(int xRei, int yRei, Peca[][] tabuleiro)
 	{
 		Peca[][] tabuleiroAuxiliar = new Peca[8][8]; 

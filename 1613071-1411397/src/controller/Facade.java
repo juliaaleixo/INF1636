@@ -28,12 +28,18 @@ public class Facade
 		}
 		return instance;
 	}
-	
+
 	public void iniciaJogo()
 	{
 		c = new TabuleiroController();
 	}
 	
+	/**
+	 * 
+	 * @param x: coordenada x do peao a ser promovido no tabuleiro
+	 * @param y: coordenada y do peao a ser promovido do tabuleiro
+	 * @param jogo: instancia do jogo
+	 */
 	public void promocao(int x, int y, Jogo jogo) 
 	{
 		Object[] possibilities = { "Rainha", "Torre", "Bispo", "Cavalo" };
@@ -84,6 +90,13 @@ public class Facade
 //        }
 		
 	}
+	/**
+	 * 
+	 * @param x: coordenada x da peca
+	 * @param y: coordenada y da peca
+	 * @param jogo: instancia do jogo 
+	 * @param controlador: controlador que observa a peca na posicao (x,y) do tabuleiro
+	 */
 	public void configuraObserver(int x, int y, Jogo jogo, TabuleiroController controlador)
 	{
 		jogo.tabuleiro[x][y].addObserver(controlador);

@@ -2,9 +2,6 @@ package model;
 
 public class Torre extends Peca
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Boolean movimentou = false;
 	
@@ -17,7 +14,10 @@ public class Torre extends Peca
 	{
 		return movimentou;
 	}
-	
+	/**
+	 * Chama funcao de movimento da torre, caso seja possivel.
+	 * Caso contrario, levanta uma excecao do tipo MovIlegalExcecao
+	 */
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if( xOrig == xDest && yOrig == yDest )
@@ -38,6 +38,10 @@ public class Torre extends Peca
 			throw new MovIlegalExcecao(str);
 		}
 	}
+	/**
+	 * Verifica se existe um caminho livre entre as coordenadas de origem e destino, levando em consideracao
+	 * as regras dos movimentos da torre.
+	 */
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
 		// andar vertical

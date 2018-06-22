@@ -2,14 +2,15 @@ package model;
 
 public class Bispo extends Peca
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	public Bispo (Cor cor)
 	{
 		super (cor);
 	}
+	/**
+	 * Chama funcao de movimento do bispo, caso seja possivel.
+	 * Caso contrario, levanta uma excecao do tipo MovIlegalExcecao
+	 */
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if( xOrig == xDest && yOrig == yDest )
@@ -29,6 +30,10 @@ public class Bispo extends Peca
 			throw new MovIlegalExcecao(str);
 		}	
 	}
+	/**
+	 * Verifica se existe um caminho livre entre as coordenadas de origem e destino, levando em consideracao
+	 * as regras dos movimentos do bispo. 
+	 */
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
 		

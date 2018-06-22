@@ -31,6 +31,9 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 	public Jogo jogo;
 	Janela janela;
 
+	/**
+	 * Cria novo jogo e janela
+	 */
 	public TabuleiroController() 
 	{
 		jogo = new Jogo();
@@ -55,7 +58,10 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		janela.salvar.addActionListener(this);
 		janela.carregar.addActionListener(this);
 	}
-
+	
+	/**
+	 * Reseta tabuleiro quando se inicia novo jogo
+	 */
 	public void resetTabuleiro() {
 		jogo = new Jogo();
 		jogo.rodadaAtual = Cor.branco;
@@ -70,7 +76,9 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		}
 
 	}
-
+	/**
+	 * Faz o movimento da peca, e verifica se com esse movimento algum rei ficou em xeque ou xeque mate
+	 */
 	private void movimentaPeca() 
 	{
 		janela.tabuleiro.jogo = jogo;
@@ -119,23 +127,33 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		}
 	}
 
-	// Pega uma coordenada da janela X e a transforma numa posicao X da matriz
-	// de pe�as
+	/**
+	 * Pega uma coordenada x da janela e a transforma em uma posicao x da matriz de pecas
+	 * @param x: coordenada x
+	 * @return
+	 */
 	public int getTileX(int x) {
 		return (x - 3) / 50;
 	}
 
-	// Pega uma coordenada da janela Y e a transforma numa posicao Y da matriz
-	// de pe�as
+	/**
+	 * Pega uma coordenada y da janela e a transforma em uma posicao y da matriz de pecas
+	 * @param y: coordenada y
+	 * @return
+	 */
 	public int getTileY(int y) {
 		return 7 - ((y - 48) / 50);
 	}
 
+	/**
+	 * Configura o mouse pressionado
+	 * Determina rodada atual e caso e primeiro ou segundo clique. 
+	 * Caso seja o primeiro, mostra todas as possicoes possiveis daquela peca. 
+	 * Caso seja o primeiro e queira mudar para outra peca, verifico se e da mesma cor.
+	 * No segundo clique, o movimento da peca e realizado.
+	 */
 	public void mousePressed(MouseEvent e)
 	{
-		System.out.println("X: " + e.getX());
-		System.out.println("X: " + e.getY());
-
 		if (pecaSelecionada == false) 
 		{
 			xOrig = getTileX(e.getX());
@@ -145,7 +163,6 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			{
 				if (jogo.tabuleiro[xOrig][yOrig].getCor() != jogo.rodadaAtual) 
 				{
-					System.out.println("A jogada e dxs " + jogo.rodadaAtual.toString());
 					return;
 				}
 				pecaSelecionada = true;
@@ -208,6 +225,13 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 	public void mouseEntered(MouseEvent e) {}
 	public void mouseExited(MouseEvent e) {}
 
+	/**
+	 * Percorre o tabuleiro, verificando para quais posicoes aquela peca pode se mover.
+	 * @param tabuleiro: tabuleiro atual
+	 * @param xOrig: coordenada x de origem da peca
+	 * @param yOrig: coordenada y de origem da peca
+	 * @return
+	 */
 	public Boolean[][] posicoesPossiveis(Peca[][] tabuleiro, int xOrig, int yOrig) 
 	{
 		Boolean posicoesPossiveis[][] = new Boolean[8][8];
@@ -233,6 +257,11 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		return posicoesPossiveis;
 	}
 
+	/**
+	 * Percorre o tabuleiro, verificando todos os reis e indicando caso estao em xeque.
+	 * @param tabuleiro: tabuleiro atual
+	 * @return
+	 */
 	public Boolean[][] reisEmXeque(Peca[][] tabuleiro) 
 	{
 		Boolean reisEmXeque[][] = new Boolean[8][8];
@@ -259,7 +288,10 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 		}
 		return reisEmXeque;
 	}
-
+	
+	/**
+	 * Atualiza observer no caso de uma promocao do peao acontecer
+	 */
 	public void update(Observable o, Object arg) 
 	{
 		if (((ArrayList<Object>) arg).get(0).equals("promocao")) 
@@ -272,6 +304,9 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 	}
 	
 	@Override
+	/**
+	 * Salva jogo, carrega jogo ja salvo e inicia novo jogo
+	 */
 	public void actionPerformed(ActionEvent e) {
 		SalvamentoDao salvamento = SalvamentoDao.getInstance();
 		if (e.getSource() == janela.salvar) {

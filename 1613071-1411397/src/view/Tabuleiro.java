@@ -39,6 +39,10 @@ public class Tabuleiro extends JPanel implements Observer
 	BufferedImage imagemReiBranco, imagemReiPreto;
 	BufferedImage imagemTorreBranca, imagemTorrePreta;
 
+	/**
+	 * Carrega as imagens das pecas
+	 * @param jogo: instancia do jogo
+	 */
 	public Tabuleiro (Jogo jogo) 
 	{
 		this.jogo = jogo;
@@ -64,6 +68,11 @@ public class Tabuleiro extends JPanel implements Observer
 			System.exit(1);
 		}
 	}
+	/**
+	 * Pinta as casas do tabuleiro, e insere as imagens das pecas.
+	 * Caso exista alguma posicao possivel da peca (quando e o primeiro clique),
+	 * ilumina essas casas.
+	 */
 	public void paintComponent(Graphics g) 
 	{
 		super.paintComponent(g);
@@ -185,13 +194,17 @@ public class Tabuleiro extends JPanel implements Observer
 			}
 		}
 	}
-
+	/**
+	 * @param posicoesPossiveis: matriz de booleanos com as posicoes possiveis de uma peca
+	 */
 	public void setPosicoesPossiveis(Boolean[][] posicoesPossiveis)
 	{
 		this.posicoesPossiveis = posicoesPossiveis;
 		repaint();
 	}
-
+	/**
+	 * Atualiza o tabuleiro, repintando-o.
+	 */
 	public void update(Observable o, Object arg) 
 	{
 		if (((ArrayList<Object>) arg).get(0).equals("repaint")) 

@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 public class Peao extends Peca
 {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	boolean primeiroMov = true;
 	
@@ -22,6 +19,10 @@ public class Peao extends Peca
 	{
 		this.primeiroMov = mov;
 	}
+	/**
+	 * Chama funcao de movimento do peao, caso seja possivel.
+	 * Caso contrario, levanta uma excecao do tipo MovIlegalExcecao
+	 */
 	public void movimento (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro) throws MovIlegalExcecao
 	{
 		if ( primeiroMov == true ) 
@@ -82,7 +83,10 @@ public class Peao extends Peca
 		}
 	} 
 
-	
+	/**
+	 * Verifica se existe um caminho livre entre as coordenadas de origem e destino, levando em consideracao
+	 * as regras dos movimentos do peao.
+	 */
 	public boolean caminhoLivre (int xOrig, int yOrig, int xDest, int yDest, Peca[][] tabuleiro)
 	{
 		int m1, m2;

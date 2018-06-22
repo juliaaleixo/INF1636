@@ -27,7 +27,11 @@ public class SalvamentoDao {
 		
 		return instance;
 	}
-	
+	/**
+	 * 
+	 * @param objeto
+	 * @param frame
+	 */
 	public void salvarJogo(Object objeto, Component frame) {
 
 		String nomeArquivo = null;
@@ -73,7 +77,11 @@ public class SalvamentoDao {
         }
         
 	}
-	
+	/**
+	 * 
+	 * @param frame
+	 * @return
+	 */
 	public Object carregarJogo(Component frame) {
 
 		Object obj = null;
