@@ -87,6 +87,8 @@ public class Jogo extends Observable implements Serializable
 		}
 		 
 		boolean primMov = false;
+		boolean movimentouRei = false;
+		boolean movimentouTorre = false;
 		
 		try
 		{
@@ -132,7 +134,62 @@ public class Jogo extends Observable implements Serializable
 			}
 			else 
 			{
-				tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+				//caso seja instancia do rei, precisa restaurar caso ele ja tinha feito algum movimento
+				if( tabuleiroAuxiliar[xOrig][yOrig] instanceof Rei )
+				{
+					movimentouRei = ((Rei)tabuleiroAuxiliar[xOrig][yOrig]).getMovimentou();
+					
+					//o movimento do roque depende se a torre tambem se movimentou
+					if ( xDest == xOrig + 2 && yOrig == yDest)
+					{
+						Peca p = tabuleiro[7][yOrig];
+						if ( p instanceof Torre )
+						{
+							movimentouTorre = ((Torre)p).getMovimentou();
+							tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+							((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
+							if ( ((Rei)tabuleiroAuxiliar[xDest][yDest]).roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiro) )
+							{
+								((Torre)tabuleiro[5][yDest]).setMovimentou(movimentouTorre);
+							}
+						}
+						else
+						{
+							tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+							((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
+						}
+					}
+					else if ( xDest == xOrig - 2 && yOrig == yDest)
+					{
+						Peca p = tabuleiro[0][yOrig];
+						if ( p instanceof Torre )
+						{
+							movimentouTorre = ((Torre)p).getMovimentou();
+							tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+							((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
+							if ( ((Rei)tabuleiroAuxiliar[xDest][yDest]).roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiro) )
+							{
+								((Torre)tabuleiro[3][yDest]).setMovimentou(movimentouTorre);
+							}
+						}
+						else
+						{
+							tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+							((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
+						}
+					}
+					else 
+					{
+						tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+						((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
+					}
+					
+				}
+				else
+				{
+					tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+				}
+				
 			}
 		
 		}

@@ -14,6 +14,10 @@ public class Torre extends Peca
 	{
 		return movimentou;
 	}
+	public void setMovimentou(boolean mov)
+	{
+		movimentou = mov;
+	}
 	/**
 	 * Chama funcao de movimento da torre, caso seja possivel.
 	 * Caso contrario, levanta uma excecao do tipo MovIlegalExcecao

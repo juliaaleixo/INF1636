@@ -14,6 +14,11 @@ public class Rei extends Peca
 	{
 		return movimentou;
 	}
+	
+	public void setMovimentou (Boolean mov)
+	{
+		movimentou = mov;
+	}
 	/**
 	 * Chama funcao de movimento do rei, caso seja possivel.
 	 * Caso contrario, levanta uma excecao do tipo MovIlegalExcecao
@@ -285,6 +290,8 @@ public class Rei extends Peca
 							continue;
 						}
 						boolean primMov = false; 
+						boolean movimentouRei = false;
+						boolean movimentouTorre = false;
 						
 						//gravar se o movimento do peao foi o primeiro para depois restaura-lo
 						if ( tabuleiroAuxiliar[iOrig][jOrig] instanceof Peao )
@@ -294,7 +301,8 @@ public class Rei extends Peca
 								Peca rei = tabuleiroAuxiliar[xRei][yRei];
 								Cor cor = tabuleiroAuxiliar[iOrig][jOrig].getCor();
 								
-								if(!tabuleiro[iOrig][jOrig].caminhoLivre(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar)) {
+								if(!tabuleiro[iOrig][jOrig].caminhoLivre(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar))
+								{
 									continue;
 								}
 								tabuleiroAuxiliar[iOrig][jOrig] = null;
@@ -342,10 +350,63 @@ public class Rei extends Peca
 							Peca rei = tabuleiroAuxiliar[xRei][yRei];
 							try 
 							{
-								tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+								if( tabuleiroAuxiliar[iOrig][jOrig] instanceof Rei )
+								{
+									movimentouRei = ((Rei)tabuleiroAuxiliar[iOrig][jOrig]).getMovimentou();
+									
+									//o movimento do roque depende se a torre tambem se movimentou
+									if ( iDest == iOrig + 2 && jOrig == jDest)
+									{
+										Peca p = tabuleiro[7][jOrig];
+										if ( p instanceof Torre )
+										{
+											movimentouTorre = ((Torre)p).getMovimentou();
+											tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+											((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
+											if ( ((Rei)tabuleiroAuxiliar[iDest][jDest]).roquePermitido(iOrig, jOrig, iDest, jDest, tabuleiro) )
+											{
+												((Torre)tabuleiro[5][jDest]).setMovimentou(movimentouTorre);
+											}
+										}
+										else
+										{
+											tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+											((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
+										}
+										
+									}
+									else if ( iDest == iOrig - 2 && jOrig == jDest)
+									{
+										Peca p = tabuleiro[0][jOrig];
+										if ( p instanceof Torre )
+										{
+											movimentouTorre = ((Torre)p).getMovimentou();
+											tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+											((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
+											if ( ((Rei)tabuleiroAuxiliar[iDest][jDest]).roquePermitido(iOrig, jOrig, iDest, jDest, tabuleiro) )
+											{
+												((Torre)tabuleiro[3][jDest]).setMovimentou(movimentouTorre);
+											}
+										}
+										else
+										{
+											tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+											((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
+										}
+									}
+									else 
+									{
+										tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+										((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
+									}
+								}
+								else
+								{
+									tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+								}
+								// Se foi o rei que se moveu
 								if (tabuleiroAuxiliar[iDest][jDest] == rei) 
 								{ 
-									// Se foi o rei que se moveu
 									if ( ! ((Rei)rei).xeque(iDest,jDest,tabuleiroAuxiliar,rei.getCor()) )
 									{
 										return true;
