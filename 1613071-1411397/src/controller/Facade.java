@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import javax.swing.JOptionPane;
 
+import dao.SalvamentoDao;
 import model.Bispo;
 import model.Cavalo;
 import model.Jogo;
@@ -16,6 +17,7 @@ public class Facade
 {
 	private static Facade instance = null;
 	private TabuleiroController c;
+	private TelaInicialController telaIni;
 	
 	private Facade () 
 	{
@@ -30,11 +32,46 @@ public class Facade
 		return instance;
 	}
 
+	public void apresentaTelaInicial()
+	{
+		telaIni = new TelaInicialController();
+	}
 	public void iniciaJogo()
 	{
+		if ( telaIni != null )
+		{
+			telaIni.fecharTela();
+		}
 		c = new TabuleiroController();
 	}
-	
+	public void iniciaJogoCarregado()
+	{
+		if ( telaIni != null )
+		{
+			telaIni.fecharTela();
+		}
+		c = new TabuleiroController();
+		SalvamentoDao salvamento = SalvamentoDao.getInstance();
+		Jogo jogo = (Jogo) salvamento.carregarJogo(c.janela);
+
+		if (jogo != null) {
+			c.jogo = jogo;
+			c.janela.tabuleiro.jogo = c.jogo;
+			configuraObserverJogo(jogo, c);
+			//reconfigura observers das pecas 
+			for (int i = 0; i < 8; i++) 
+			{
+				for (int j = 0; j < 8; j++) 
+				{
+					if (jogo.tabuleiro[i][j] != null) 
+					{
+						configuraObserverPeca(i, j, jogo, c);
+					}
+				}
+			}
+			jogo.tabuleiroAtualizado();
+		}
+	}
 	/**
 	 * Faz a promocao do peao
 	 * @param x: coordenada x do peao a ser promovido no tabuleiro

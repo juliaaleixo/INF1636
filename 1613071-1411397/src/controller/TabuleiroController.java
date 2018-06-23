@@ -325,6 +325,7 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 				this.jogo = jogo;
 				janela.tabuleiro.jogo = this.jogo;
 				Facade.getInstance().configuraObserverJogo(jogo, this);
+				
 				//reconfigura observers das pecas 
 				for (int i = 0; i < 8; i++) 
 				{
