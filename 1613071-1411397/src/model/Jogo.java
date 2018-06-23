@@ -132,6 +132,21 @@ public class Jogo extends Observable implements Serializable
 					((Peao)tabuleiroAuxiliar[xDest][yDest]).setPrimeiroMov(primMov);
 				}
 			}
+			else if (tabuleiroAuxiliar[xOrig][yOrig] instanceof Torre) 
+			{
+				Peca p = tabuleiroAuxiliar[xOrig][yOrig];
+				movimentouTorre = ((Torre)p).getMovimentou();
+				try
+				{
+					p.movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+					((Torre)p).setMovimentou(movimentouTorre);
+				} 
+				catch (MovIlegalExcecao e) 
+				{
+					((Torre)p).setMovimentou(movimentouTorre);
+					return false;
+				}
+			}
 			else 
 			{
 				//caso seja instancia do rei, precisa restaurar caso ele ja tinha feito algum movimento
@@ -142,15 +157,20 @@ public class Jogo extends Observable implements Serializable
 					//o movimento do roque depende se a torre tambem se movimentou
 					if ( xDest == xOrig + 2 && yOrig == yDest)
 					{
-						Peca p = tabuleiro[7][yOrig];
+						Peca p = tabuleiroAuxiliar[7][yOrig];
 						if ( p instanceof Torre )
 						{
 							movimentouTorre = ((Torre)p).getMovimentou();
-							tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
-							((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
-							if ( ((Rei)tabuleiroAuxiliar[xDest][yDest]).roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiro) )
+							if ( ((Rei)tabuleiroAuxiliar[xOrig][yOrig]).roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar) )
 							{
-								((Torre)tabuleiro[5][yDest]).setMovimentou(movimentouTorre);
+								tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+								((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
+								((Torre)tabuleiroAuxiliar[5][yDest]).setMovimentou(movimentouTorre);
+							}
+							else
+							{
+								tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+								((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
 							}
 						}
 						else
@@ -161,15 +181,20 @@ public class Jogo extends Observable implements Serializable
 					}
 					else if ( xDest == xOrig - 2 && yOrig == yDest)
 					{
-						Peca p = tabuleiro[0][yOrig];
+						Peca p = tabuleiroAuxiliar[0][yOrig];
 						if ( p instanceof Torre )
 						{
 							movimentouTorre = ((Torre)p).getMovimentou();
-							tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
-							((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
-							if ( ((Rei)tabuleiroAuxiliar[xDest][yDest]).roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiro) )
+							if ( ((Rei)tabuleiroAuxiliar[xOrig][yOrig]).roquePermitido(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar) )
 							{
-								((Torre)tabuleiro[3][yDest]).setMovimentou(movimentouTorre);
+								tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+								((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
+								((Torre)tabuleiroAuxiliar[3][yDest]).setMovimentou(movimentouTorre);
+							}
+							else
+							{
+								tabuleiroAuxiliar[xOrig][yOrig].movimento(xOrig, yOrig, xDest, yDest, tabuleiroAuxiliar);
+								((Rei)tabuleiroAuxiliar[xDest][yDest]).setMovimentou(movimentouRei);
 							}
 						}
 						else

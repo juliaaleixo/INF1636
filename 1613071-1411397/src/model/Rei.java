@@ -345,11 +345,27 @@ public class Rei extends Peca
 								((Peao)tabuleiroAuxiliar[iDest][jDest]).setPrimeiroMov(primMov);
 							}
 						}
+						else if (tabuleiroAuxiliar[iOrig][jOrig] instanceof Torre) 
+						{
+							Peca p = tabuleiroAuxiliar[iOrig][jOrig];
+							movimentouTorre = ((Torre)p).getMovimentou();
+							try
+							{
+								p.movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+								((Torre)p).setMovimentou(movimentouTorre);
+							} 
+							catch (MovIlegalExcecao e) 
+							{
+								((Torre)p).setMovimentou(movimentouTorre);
+								continue;
+							}
+						}
 						else
 						{
 							Peca rei = tabuleiroAuxiliar[xRei][yRei];
 							try 
 							{
+								//caso seja instancia do rei, precisa restaurar caso ele ja tinha feito algum movimento
 								if( tabuleiroAuxiliar[iOrig][jOrig] instanceof Rei )
 								{
 									movimentouRei = ((Rei)tabuleiroAuxiliar[iOrig][jOrig]).getMovimentou();
@@ -357,15 +373,20 @@ public class Rei extends Peca
 									//o movimento do roque depende se a torre tambem se movimentou
 									if ( iDest == iOrig + 2 && jOrig == jDest)
 									{
-										Peca p = tabuleiro[7][jOrig];
+										Peca p = tabuleiroAuxiliar[7][jOrig];
 										if ( p instanceof Torre )
 										{
 											movimentouTorre = ((Torre)p).getMovimentou();
-											tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
-											((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
-											if ( ((Rei)tabuleiroAuxiliar[iDest][jDest]).roquePermitido(iOrig, jOrig, iDest, jDest, tabuleiro) )
+											if ( ((Rei)tabuleiroAuxiliar[iOrig][jOrig]).roquePermitido(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar) )
 											{
-												((Torre)tabuleiro[5][jDest]).setMovimentou(movimentouTorre);
+												tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+												((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
+												((Torre)tabuleiroAuxiliar[5][jDest]).setMovimentou(movimentouTorre);
+											}
+											else
+											{
+												tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+												((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
 											}
 										}
 										else
@@ -373,19 +394,23 @@ public class Rei extends Peca
 											tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
 											((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
 										}
-										
 									}
 									else if ( iDest == iOrig - 2 && jOrig == jDest)
 									{
-										Peca p = tabuleiro[0][jOrig];
+										Peca p = tabuleiroAuxiliar[0][jOrig];
 										if ( p instanceof Torre )
 										{
 											movimentouTorre = ((Torre)p).getMovimentou();
-											tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
-											((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
-											if ( ((Rei)tabuleiroAuxiliar[iDest][jDest]).roquePermitido(iOrig, jOrig, iDest, jDest, tabuleiro) )
+											if ( ((Rei)tabuleiroAuxiliar[iOrig][jOrig]).roquePermitido(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar) )
 											{
-												((Torre)tabuleiro[3][jDest]).setMovimentou(movimentouTorre);
+												tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+												((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
+												((Torre)tabuleiroAuxiliar[3][iDest]).setMovimentou(movimentouTorre);
+											}
+											else
+											{
+												tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
+												((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
 											}
 										}
 										else
@@ -399,6 +424,7 @@ public class Rei extends Peca
 										tabuleiroAuxiliar[iOrig][jOrig].movimento(iOrig, jOrig, iDest, jDest, tabuleiroAuxiliar);
 										((Rei)tabuleiroAuxiliar[iDest][jDest]).setMovimentou(movimentouRei);
 									}
+									
 								}
 								else
 								{
