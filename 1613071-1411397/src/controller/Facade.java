@@ -77,6 +77,21 @@ public class Facade
 		}
 		promocao(x, y,jogo);
 	}
+	public void alertaEmpate()
+	{
+		int input = JOptionPane.showConfirmDialog(null, "Deseja comecar novo jogo?", "Empate", JOptionPane.YES_NO_OPTION);
+		// opcao: nao iniciar novo jogo
+		if (input == 1) 
+		{
+      		c.janela.dispose();
+       		c.janela.setVisible(false);
+		}
+		//iniciar novo jogo	
+		else
+		{
+			c.novoJogo();
+		}
+	}
 	public void alertaXeque()
 	{
 		JOptionPane.showMessageDialog(null, "Xeque");

@@ -258,6 +258,80 @@ public class Jogo extends Observable implements Serializable
 		}
 		return false;
 	}
+	
+	public Boolean verificaEmpate(Peca[][] tabuleiro)
+	{
+		int xReiPreto=0, yReiPreto = 0, xReiBranco=0, yReiBranco=0;
+		//Descobre posiçoes dos Reis
+		for ( int i = 0; i < 8; i++ )
+		{
+			for ( int j = 0; j < 8; j++ )
+			{
+				if (tabuleiro[i][j] instanceof Rei) {
+					if (tabuleiro[i][j].getCor() == Cor.preto)
+					{
+						xReiPreto = i;
+						yReiPreto = j;
+					}
+					else
+					{
+						xReiBranco = i;
+						yReiBranco = j;
+					}
+				}
+			}
+		}
+		//caso o rei nao esteja em xeque mas não exita movimento possivel de nenhuma peca é
+		if(((Rei)tabuleiro[xReiPreto][yReiPreto]).xeque(xReiPreto, yReiPreto, tabuleiro, Cor.preto) && rodadaAtual == Cor.preto) {
+			return false;
+		}
+		if ( !((Rei)tabuleiro[xReiPreto][yReiPreto]).xeque(xReiPreto, yReiPreto, tabuleiro, Cor.preto) && rodadaAtual == Cor.preto )
+		{
+			for ( int i = 0; i < 8; i++ )
+			{
+				for (int j = 0; j < 8; j++) 
+				{
+					if (tabuleiro[i][j] != null && tabuleiro[i][j].getCor() == Cor.preto && pecaPodeSeMover(tabuleiro, i, j)) {
+						return false;
+					}
+				}
+			}
+		}
+		if(((Rei)tabuleiro[xReiBranco][yReiBranco]).xeque(xReiBranco, yReiBranco, tabuleiro, Cor.branco) && rodadaAtual == Cor.branco) {
+			return false;
+		}
+		if ( !((Rei)tabuleiro[xReiBranco][yReiBranco]).xeque(xReiBranco, yReiBranco, tabuleiro, Cor.branco)  && rodadaAtual == Cor.branco )
+		{
+			for ( int i = 0; i < 8; i++ )
+			{
+				for (int j = 0; j < 8; j++) 
+				{
+					if (tabuleiro[i][j] != null && tabuleiro[i][j].getCor() == Cor.branco && pecaPodeSeMover(tabuleiro, i, j)) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+	
+	public Boolean pecaPodeSeMover(Peca[][] tabuleiro, int xOrig, int yOrig)
+	{
+		Peca p = tabuleiro[xOrig][yOrig];
+
+		for (int i = 0; i < 8; i++) 
+		{
+			for (int j = 0; j < 8; j++) 
+			{
+				if (p.caminhoLivre(xOrig, yOrig, i, j, tabuleiro) && !reiDesprotegido(xOrig, yOrig, i, j)) 
+				{
+					return true;
+				} 
+			}
+		}
+		return false;
+	}
+	
 	public void tabuleiroAtualizado()
 	{
 		ArrayList<Object> obj = new ArrayList<Object>();

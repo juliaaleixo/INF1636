@@ -102,7 +102,10 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 			{
 				jogo.rodadaAtual = Cor.branco;
 			}
-
+			if(jogo.verificaEmpate(jogo.tabuleiro)) 
+			{
+				Facade.getInstance().alertaEmpate();
+			}
 			Boolean[][] reisEmXeque = reisEmXeque(jogo.tabuleiro);
 			for (int i = 0; i < 8; i++)
 			{
