@@ -178,7 +178,6 @@ public class Jogo extends Observable implements Serializable
 	}
 	public void tabuleiroAtualizado()
 	{
-		System.out.println("oi");
 		ArrayList<Object> obj = new ArrayList<Object>();
 		obj.add("repaint");
 	

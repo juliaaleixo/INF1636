@@ -301,28 +301,24 @@ public class Rei extends Peca
 								tabuleiroAuxiliar[iDest][jDest] = new Rainha(cor);
 								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
-									System.out.println("nao ta em cheque 3");
 									return true;
 								}
 								
 								tabuleiroAuxiliar[iDest][jDest] = new Cavalo(cor);
 								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
-									System.out.println("nao ta em cheque 4");
 									return true;
 								}
 								
 								tabuleiroAuxiliar[iDest][jDest] = new Bispo(cor);
 								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
-									System.out.println("nao ta em cheque 5");
 									return true;
 								}
 								
 								tabuleiroAuxiliar[iDest][jDest] = new Torre(cor);
 								if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 								{
-									System.out.println("nao ta em cheque 6");
 									return true;
 								}
 								continue;
@@ -368,12 +364,12 @@ public class Rei extends Peca
 					}
 					//caso o rei que estava em xeque deixe de estar apos esse movimento, funcao retorna true
 					Peca rei = tabuleiroAuxiliar[xRei][yRei];
-					if(!(rei instanceof Rei)) {
+					if (!(rei instanceof Rei)) 
+					{
 						continue;
 					}
-					if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )//TODO: acha que eh uma rainha
+					if ( ! ((Rei)rei).xeque(xRei,yRei,tabuleiroAuxiliar,rei.getCor()) )
 					{
-						System.out.println("nao ta em cheque 2");
 						return true;
 					}
 				}

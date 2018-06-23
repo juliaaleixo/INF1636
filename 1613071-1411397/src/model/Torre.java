@@ -57,8 +57,6 @@ public class Torre extends Peca
 				}
 				if ( tabuleiro[xOrig][yOrig+passo] != null )
 				{
-					//System.out.println(xOrig);
-					//System.out.println(yOrig+passo);
 					return false;
 				}
 			}

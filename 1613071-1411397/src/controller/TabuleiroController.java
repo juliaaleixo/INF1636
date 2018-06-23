@@ -313,11 +313,9 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 	public void actionPerformed(ActionEvent e) {
 		SalvamentoDao salvamento = SalvamentoDao.getInstance();
 		if (e.getSource() == janela.salvar) {
-			System.out.println("Salvando jogo atual...");
 			salvamento.salvarJogo(jogo, janela);
 			
 		} else if (e.getSource() == janela.carregar) {
-			System.out.println("Carregando jogo salvo...");
 			Jogo jogo = (Jogo) salvamento.carregarJogo(janela);
 
 			if (jogo != null) {
@@ -351,6 +349,9 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 
 		}
 	}
+	/**
+	 * Cria novo jogo
+	 */
 	public void novoJogo()
 	{
 		this.jogo = new Jogo();

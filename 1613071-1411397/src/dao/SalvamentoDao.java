@@ -28,7 +28,7 @@ public class SalvamentoDao {
 		return instance;
 	}
 	/**
-	 * 
+	 * Salva jogo atual
 	 * @param objeto
 	 * @param frame
 	 */
@@ -58,7 +58,7 @@ public class SalvamentoDao {
 			nomeArquivo = nomeArquivo + ".xdz";
 		}
 		File outputFile = new File(dir, nomeArquivo);
-    	final String caminho = dir + nomeArquivo;
+    		final String caminho = dir + nomeArquivo;
     	
         try {
         	
@@ -71,14 +71,12 @@ public class SalvamentoDao {
         	stream.close();
 
         } catch (Exception exc) {
-          
-        	System.out.println("Erro ao salvar arquivo " + caminho);
         	exc.printStackTrace();
         }
         
 	}
 	/**
-	 * 
+	 * Carrega um jogo ja salvo.
 	 * @param frame
 	 * @return
 	 */
@@ -120,7 +118,6 @@ public class SalvamentoDao {
 
         } catch (Exception exc) {
         	JOptionPane.showMessageDialog(frame, "Nao foi possivel abrir o arquivo.", "Erro ao abrir arquivo de xadrez", JOptionPane.ERROR_MESSAGE);
-        	System.out.println("Erro ao abrir arquivo " + dir.toString());
         	exc.printStackTrace();
         }
         
