@@ -38,7 +38,7 @@ public class SalvamentoDao {
 		File dir = null;
 		
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","xdz"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","txt"));
 		
 		int result = fileChooser.showSaveDialog(frame);
 		
@@ -50,12 +50,12 @@ public class SalvamentoDao {
 			dir = fileChooser.getCurrentDirectory();
 		}
 		
-		if (!nomeArquivo.endsWith(".xdz")) {
+		if (!nomeArquivo.endsWith(".txt")) {
 			if(nomeArquivo.contains(".")) {
 				JOptionPane.showMessageDialog(frame, "Caracter invalido", "Nao foi possivel salvar", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
-			nomeArquivo = nomeArquivo + ".xdz";
+			nomeArquivo = nomeArquivo + ".txt";
 		}
 		File outputFile = new File(dir, nomeArquivo);
     		final String caminho = dir + nomeArquivo;
@@ -87,7 +87,7 @@ public class SalvamentoDao {
 		File dir = null;
 		
 		JFileChooser fileChooser = new JFileChooser();
-		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","xdz"));
+		fileChooser.addChoosableFileFilter(new FileNameExtensionFilter("Arquivo de xadrez","txt"));
 		
 		int result = fileChooser.showOpenDialog(frame);
 		
@@ -99,7 +99,7 @@ public class SalvamentoDao {
 			dir = fileChooser.getCurrentDirectory();
 		}
 		
-		if (!nomeArquivo.endsWith(".xdz")) {
+		if (!nomeArquivo.endsWith(".txt")) {
 			JOptionPane.showMessageDialog(frame, "Nao foi possivel abrir o arquivo.", "Erro ao abrir arquivo de xadrez", JOptionPane.ERROR_MESSAGE);
 			return null;
 		}
