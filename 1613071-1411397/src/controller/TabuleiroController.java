@@ -190,7 +190,7 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 					// tentativa de roque
 					if((jogo.tabuleiro[xOrig][yOrig] instanceof Rei) && (jogo.tabuleiro[x][y] instanceof Torre)) {
 						
-						// conversão para o roque
+						// conversï¿½o para o roque
 						if (x == 7) {
 							xDest = x - 1;
 							yDest = y;
@@ -198,7 +198,6 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 							xDest = x + 2;
 							yDest = y;
 						}
-						System.out.println(xDest + " - Tentativa de Roque");
 						janela.tabuleiro.setPosicoesPossiveis(null);
 						movimentaPeca();
 
