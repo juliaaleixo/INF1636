@@ -174,6 +174,25 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 				pecaSelecionada = true;
 
 				Boolean[][] posicoes = posicoesPossiveis(jogo.tabuleiro, xOrig, yOrig);
+				
+				Peca p = jogo.tabuleiro[xOrig][yOrig];
+				if (p instanceof Rei)
+				{
+					if(((Rei)p).getMovimentou() == false)
+					{
+						if(posicoes[xOrig+2][yOrig] == true)
+						{
+							posicoes[xOrig+2][yOrig] = false;
+							posicoes[7][yOrig] = true;
+						}
+						if(posicoes[xOrig-2][yOrig] == true)
+						{
+							posicoes[xOrig-2][yOrig] = false;
+							posicoes[0][yOrig] = true;
+						}
+					}
+				}
+				
 				janela.tabuleiro.setPosicoesPossiveis(posicoes);
 
 			}
@@ -198,15 +217,37 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 							xDest = x + 2;
 							yDest = y;
 						}
-						janela.tabuleiro.setPosicoesPossiveis(null);
-						movimentaPeca();
+						
+						if ( !jogo.reiDesprotegido(xOrig, yOrig, xDest, yDest) )
+						{
+							janela.tabuleiro.setPosicoesPossiveis(null);
+							movimentaPeca();
 
-						pecaSelecionada = false;
+							pecaSelecionada = false;
+						}
 					} else { 
 						xOrig = x;
 						yOrig = y;
 	
 						Boolean[][] posicoes = posicoesPossiveis(jogo.tabuleiro, xOrig, yOrig);
+						
+						Peca p = jogo.tabuleiro[xOrig][yOrig];
+						if (p instanceof Rei)
+						{
+							if(((Rei)p).getMovimentou() == false)
+							{
+								if(posicoes[xOrig+2][yOrig] == true)
+								{
+									posicoes[xOrig+2][yOrig] = false;
+									posicoes[7][yOrig] = true;
+								}
+								if(posicoes[xOrig-2][yOrig] == true)
+								{
+									posicoes[xOrig-2][yOrig] = false;
+									posicoes[0][yOrig] = true;
+								}
+							}
+						}
 						janela.tabuleiro.setPosicoesPossiveis(posicoes);
 					}
 				} 
@@ -274,41 +315,6 @@ public class TabuleiroController implements MouseListener, Observer, ActionListe
 				else 
 				{
 					posicoesPossiveis[i][j] = false;
-				}
-				
-				if(p instanceof Rei && (((Rei) p).getMovimentou() == false)) {
-					
-					boolean xPoss;
-					int xAtual;
-					Peca pCanto = tabuleiro[7][yOrig];
-					if(pCanto instanceof Torre && ((Torre) pCanto).getMovimentou() == false) {
-						xAtual = xOrig+1;
-						while((xPoss = (tabuleiro[xAtual][yOrig] == null)) == true) {
-							xAtual++;
-							if (xAtual == 7) {
-								break;
-							}
-						}
-						if(xPoss) {
-							posicoesPossiveis[7][yOrig] = true;
-							posicoesPossiveis[6][yOrig] = false;
-						}
-					}
-					
-					pCanto = tabuleiro[0][yOrig];
-					if(pCanto instanceof Torre && ((Torre) pCanto).getMovimentou() == false) {
-						xAtual = xOrig-1;
-						while((xPoss = (tabuleiro[xAtual][yOrig] == null)) == true) {
-							xAtual--;
-							if (xAtual == 0) {
-								break;
-							}
-						}
-						if(xPoss) {
-							posicoesPossiveis[0][yOrig] = true;
-							posicoesPossiveis[2][yOrig] = false;
-						}
-					}
 				}
 			}
 		}
