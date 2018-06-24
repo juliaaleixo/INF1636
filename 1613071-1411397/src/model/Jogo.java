@@ -281,7 +281,7 @@ public class Jogo extends Observable implements Serializable
 				}
 			}
 		}
-		//caso o rei nao esteja em xeque mas não exita movimento possivel de nenhuma peca é
+		//caso o rei nao esteja em xeque mas não exista movimento possivel de nenhuma peca 
 		if(((Rei)tabuleiro[xReiPreto][yReiPreto]).xeque(xReiPreto, yReiPreto, tabuleiro, Cor.preto) && rodadaAtual == Cor.preto) {
 			return false;
 		}
