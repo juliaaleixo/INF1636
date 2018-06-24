@@ -226,7 +226,7 @@ public class Jogo extends Observable implements Serializable
 	}
 	
 	/**
-	 * 
+	 * Testa se rei ficara em xeque
 	 * @param tabuleiroAuxiliar
 	 * @param xDest
 	 * @param yDest
@@ -259,6 +259,11 @@ public class Jogo extends Observable implements Serializable
 		return false;
 	}
 	
+	/**
+	 * Verifica se o jogo empatou
+	 * @param tabuleiro: tabuleiro atual
+	 * @return
+	 */
 	public Boolean verificaEmpate(Peca[][] tabuleiro)
 	{
 		int xReiPreto=0, yReiPreto = 0, xReiBranco=0, yReiBranco=0;
@@ -281,7 +286,7 @@ public class Jogo extends Observable implements Serializable
 				}
 			}
 		}
-		//caso o rei nao esteja em xeque mas não exita movimento possivel de nenhuma peca é
+		//caso o rei nao esteja em xeque mas não exista movimento possivel de nenhuma peca 
 		if(((Rei)tabuleiro[xReiPreto][yReiPreto]).xeque(xReiPreto, yReiPreto, tabuleiro, Cor.preto) && rodadaAtual == Cor.preto) {
 			return false;
 		}
@@ -314,7 +319,13 @@ public class Jogo extends Observable implements Serializable
 		}
 		return true;
 	}
-	
+	/**
+	 * Verifica se peca pode se mover
+	 * @param tabuleiro: instancia do tabuleiro
+	 * @param xOrig: coordenada x de origem
+	 * @param yOrig: coordenad y de origem
+	 * @return
+	 */
 	public Boolean pecaPodeSeMover(Peca[][] tabuleiro, int xOrig, int yOrig)
 	{
 		Peca p = tabuleiro[xOrig][yOrig];
